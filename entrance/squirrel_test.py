@@ -4,7 +4,7 @@ from squirrel import squirrel
 class MyTestCase(unittest.TestCase):
     def test_squirrel(self):
         self.assertEqual(squirrel(-100), 0)
-        self.assertEqual(squirrel(0), 0)
+        self.assertEqual(squirrel(0), 1)
         self.assertEqual(squirrel(1), 1)
         self.assertEqual(squirrel(2), 2)
         self.assertEqual(squirrel(3), 6)

@@ -1,5 +1,5 @@
 def squirrel(number: int) -> int:
-    if number < 1:
+    if number < 0:
         return 0
 
     nuts = 1
