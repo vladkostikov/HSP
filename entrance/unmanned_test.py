@@ -12,6 +12,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(Unmanned(10, 3, [[1, 10, 2], [5, 10, 2], [9, 10, 2]]), 35)
         self.assertEqual(Unmanned(15, 4, [[2, 1, 1], [4, 1, 1], [6, 1, 1], [8, 1, 1]]), 16)
         self.assertEqual(Unmanned(20, 4, [[0, 10, 1], [4, 0, 1], [6, 0, 1], [8, 0, 1]]), 30)
+        self.assertEqual(Unmanned(10, 2, [[11, 5, 5], [15, 2, 2]]), 10)
+        self.assertEqual(Unmanned(10, 2, [[9, 30, 5], [15, 2, 2]]), 31)
+        self.assertEqual(Unmanned(10, 2, [[10, 30, 5], [15, 2, 2]]), 10)
 
 
 if __name__ == '__main__':
