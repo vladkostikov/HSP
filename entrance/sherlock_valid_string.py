@@ -11,7 +11,7 @@ def SherlockValidString(string: str) -> bool:
     if minimum == maximum:
         return True
 
-    if values.count(minimum) == 1:
+    if (minimum == 1) & (values.count(minimum) == 1):
         position_minimum_in_values = values.index(minimum)
         minimum_char = keys[position_minimum_in_values]
         del frequency[minimum_char]

@@ -14,3 +14,4 @@ class Test(TestCase):
         self.assertEqual(SherlockValidString("ab"), True)
         self.assertEqual(SherlockValidString("aa"), True)
         self.assertEqual(SherlockValidString("aaaabbbbc"), True)
+        self.assertEqual(SherlockValidString("xxxxxyyyyyyy"), False)
