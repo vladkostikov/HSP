@@ -4,6 +4,7 @@ from football import Football
 
 class Test(TestCase):
     def test_football(self):
+        self.assertEqual(Football([1, 2, 3], 3), False)
         self.assertEqual(Football([1, 3, 2], 3), True)
         self.assertEqual(Football([3, 2, 1], 3), True)
         self.assertEqual(Football([1, 7, 5, 3, 9], 5), True)

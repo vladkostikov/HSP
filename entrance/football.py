@@ -2,7 +2,7 @@ def Football(footballers: list, _count: int) -> bool:
     sorted_footballers = sorted(footballers)
 
     if footballers == sorted_footballers:
-        return True
+        return False
 
     if swap_two_football_players(footballers, sorted_footballers):
         return True
