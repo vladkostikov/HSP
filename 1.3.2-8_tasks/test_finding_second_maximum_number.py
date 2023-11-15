@@ -13,3 +13,5 @@ class Test(TestCase):
         self.assertEqual(find_second_maximum_number([0, 1, 2, 2]), 2)
         self.assertEqual(find_second_maximum_number([0, 1, 2, 2, 3]), 2)
         self.assertEqual(find_second_maximum_number([2, 1, 1, 1]), 1)
+        self.assertEqual(find_second_maximum_number([5, 6, 4, 2]), 5)
+        self.assertEqual(find_second_maximum_number([6, 5, 4, 2]), 5)
