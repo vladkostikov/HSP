@@ -11,9 +11,8 @@ def find_second_maximum(numbers: list, index: int, max1: int, max2: int) -> int:
         return max2
 
     if numbers[index] > max1:
-        return find_second_maximum(numbers, index + 1, numbers[index], max1)
-
-    if numbers[index] > max2:
-        return find_second_maximum(numbers, index + 1, max1, numbers[index])
+        max1, max2 = numbers[index], max1
+    elif numbers[index] > max2:
+        max2 = numbers[index]
 
     return find_second_maximum(numbers, index + 1, max1, max2)
