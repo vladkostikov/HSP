@@ -1,17 +1,19 @@
 def find_second_maximum_number(numbers: list) -> int:
-    second_maximum_index = find_second_maximum_number_index(numbers, [])
-    return numbers[second_maximum_index]
+    maximum1, maximum2 = numbers[0], numbers[1]
+    if maximum2 > maximum1:
+        maximum1, maximum2 = numbers[1], numbers[0]
+
+    return find_second_maximum(numbers, 2, maximum1, maximum2)
 
 
-def find_second_maximum_number_index(numbers: list, maximum_indexes: list) -> int:
-    maximum_index = 0
-    if maximum_index in maximum_indexes:
-        maximum_index = 1
+def find_second_maximum(numbers: list, index: int, max1: int, max2: int) -> int:
+    if index == len(numbers):
+        return max2
 
-    for index, num in enumerate(numbers):
-        if (num > numbers[maximum_index]) and (index not in maximum_indexes):
-            maximum_index = index
+    if numbers[index] > max1:
+        return find_second_maximum(numbers, index + 1, numbers[index], max1)
 
-    if len(maximum_indexes) == 0:
-        return find_second_maximum_number_index(numbers, [maximum_index])
-    return maximum_index
+    if numbers[index] > max2:
+        return find_second_maximum(numbers, index + 1, max1, numbers[index])
+
+    return find_second_maximum(numbers, index + 1, max1, max2)
