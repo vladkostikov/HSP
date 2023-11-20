@@ -3,7 +3,6 @@ def white_walkers(village: str) -> bool:
     for num in range(0, 10):
         digits.append(str(num))
 
-    first_cityzen_index = None
     second_cityzen_index = None
     is_walkers_identified = False
     for i, char in enumerate(village):
@@ -14,10 +13,8 @@ def white_walkers(village: str) -> bool:
             second_cityzen_index = i
             continue
 
-        if char in digits:
-            first_cityzen_index = second_cityzen_index
-            second_cityzen_index = i
-
+        first_cityzen_index = second_cityzen_index
+        second_cityzen_index = i
         sum_of_two_citizens = int(village[first_cityzen_index]) + int(village[second_cityzen_index])
         if sum_of_two_citizens == 10:
             white_walkers_between_cityzens = village[first_cityzen_index + 1:second_cityzen_index].count("=")
