@@ -10,3 +10,5 @@ class Test(TestCase):
         self.assertEqual(0, artificial_muscle_fibers([]))
         arr = [num for num in range(2000)] + [num for num in range(250, 500)] + [num for num in range(400, 500)]
         self.assertEqual(250, artificial_muscle_fibers(arr))
+        arr = [num for num in range(32000)] + [num for num in range(1000, 5000)] + [num for num in range(4500, 5500)]
+        self.assertEqual(4500, artificial_muscle_fibers(arr))
