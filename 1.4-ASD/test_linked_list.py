@@ -113,3 +113,27 @@ class TestLinkedList(TestCase):
         self.assertEqual(1, linked_list.len())
         self.assertEqual(node22, linked_list.head)
         self.assertEqual(node22, linked_list.tail)
+    def test_sum_of_two_linked_lists(self):
+        first_list = LinkedList()
+        second_list = LinkedList()
+        third_list = LinkedList()
+        self.assertEqual([], first_list.sum_of_two_linked_lists(second_list))
+
+        first_list.add_in_tail(Node(1))
+        first_list.add_in_tail(Node(2))
+        first_list.add_in_tail(Node(4))
+        first_list.add_in_tail(Node(8))
+
+        second_list.add_in_tail(Node(1))
+        second_list.add_in_tail(Node(2))
+        second_list.add_in_tail(Node(3))
+        second_list.add_in_tail(Node(4))
+
+        third_list = LinkedList()
+        third_list.add_in_tail(Node(1))
+        third_list.add_in_tail(Node(2))
+        third_list.add_in_tail(Node(3))
+
+        self.assertEqual([2, 4, 7, 12], first_list.sum_of_two_linked_lists(second_list))
+        self.assertEqual(None, first_list.sum_of_two_linked_lists(third_list))
+        self.assertEqual(None, third_list.sum_of_two_linked_lists(first_list))

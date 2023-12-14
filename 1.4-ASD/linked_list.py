@@ -112,3 +112,22 @@ class LinkedList:
             if after_node is self.tail:
                 self.tail = new_node
         return None
+
+    def sum_of_two_linked_lists(self, second_list):
+        sum_of_lists = []
+        first_node = self.head
+        second_node = second_list.head
+        while first_node is not None:
+            # Если в первом списке ещё есть узлы, а во втором нет, то списки различаются по длине.
+            if second_node is None:
+                return None
+            sum_of_lists.append(first_node.value + second_node.value)
+            first_node = first_node.next
+            second_node = second_node.next
+
+        # Если во втором списке ещё остались узлы, то списки различаются по длине.
+        if second_node is not None:
+            return None
+
+        # Возвращаем сумму элементов списка, только если они равны по длине.
+        return sum_of_lists
