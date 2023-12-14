@@ -16,6 +16,7 @@ class LinkedList:
         else:
             self.tail.next = item
         self.tail = item
+        return None
 
     # Печать всех узлов списка.
     def print_all_nodes(self):
@@ -23,6 +24,7 @@ class LinkedList:
         while node is not None:
             print(node.value)
             node = node.next
+        return None
 
     # Поиск первого узла с нужным значением.
     def find(self, val):
@@ -82,6 +84,7 @@ class LinkedList:
     def clean(self):
         self.head = None
         self.tail = None
+        return None
 
     # Определение длины списка.
     def len(self) -> int:
@@ -96,8 +99,10 @@ class LinkedList:
     def insert(self, after_node, new_node):
         node = self.head
 
+        if self.head is None:
+            self.add_in_tail(new_node)
         # Добавляем узел в начало списка, если не указано в какое место вставить узел.
-        if after_node is None:
+        elif after_node is None:
             new_node.next = node
             self.head = new_node
         # Добавляем узел после указанного узла.

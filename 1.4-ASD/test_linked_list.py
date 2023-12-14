@@ -106,3 +106,10 @@ class TestLinkedList(TestCase):
         linked_list.insert(node4, node50)
         self.assertEqual(node50, node4.next)
         self.assertEqual(6, linked_list.len())
+
+        node22 = Node(22)
+        linked_list = LinkedList()
+        linked_list.insert(None, node22)
+        self.assertEqual(1, linked_list.len())
+        self.assertEqual(node22, linked_list.head)
+        self.assertEqual(node22, linked_list.tail)
