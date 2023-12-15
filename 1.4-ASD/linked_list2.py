@@ -58,22 +58,25 @@ class LinkedList2:
                 node = node.next
                 continue
 
-            # Очищаем список и завершаем цикл, если узел для удаления единственный.
+            # Если узел для удаления единственный в списке, то очищаем список и завершаем цикл.
             if (node is self.head) and (node is self.tail):
                 self.clean()
                 break
 
-            # Смещаем последний узел и завершаем цикл, если узел для удаления последний.
+            # Если узел для удаления последний, то смещаем последний узел и завершаем цикл.
             if node is self.tail:
                 self.tail = node.prev
                 node.prev.next = None
                 break
 
-            # Смещаем первый узел, если узел для удаления первый.
+            # Если узел для удаления первый, то смещаем первый узел.
             if node is self.head:
                 self.head = node.next
                 node.next.prev = None
                 node = node.next
+                # Завершаем цикл, если нужно удалить только один узел.
+                if delete_all is False:
+                    break
                 continue
 
             # Исключаем текущий узел из списка и переходим к следующему узлу.

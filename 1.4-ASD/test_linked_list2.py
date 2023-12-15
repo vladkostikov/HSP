@@ -76,6 +76,18 @@ class TestLinkedList(TestCase):
         self.assertIsNone(linked_list.head)
         self.assertIsNone(linked_list.tail)
 
+        linked_list.add_in_tail(Node(1))
+        linked_list.add_in_tail(Node(1))
+        linked_list.add_in_tail(Node(5))
+        self.assertEqual(1, linked_list.head.value)
+        self.assertEqual(5, linked_list.tail.value)
+        self.assertEqual(3, linked_list.len())
+        linked_list.delete(1, False)
+        self.assertEqual(1, linked_list.head.value)
+        self.assertEqual(5, linked_list.tail.value)
+        self.assertEqual(2, linked_list.len())
+
+
     def test_clean(self):
         linked_list = LinkedList2()
         linked_list.add_in_tail(Node(1))
