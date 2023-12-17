@@ -8,12 +8,10 @@ class Node:
 
 class LinkedList2:
     def __init__(self):
-        dummy_head = Node(None, True)
-        dummy_tail = Node(None, True)
-        dummy_head.next = dummy_tail
-        dummy_tail.prev = dummy_head
-        self.head = dummy_head
-        self.tail = dummy_tail
+        self.head = Node(None, True)
+        self.tail = Node(None, True)
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
     # Добавление узла в конец списка.
     def add_in_tail(self, item):
@@ -71,12 +69,10 @@ class LinkedList2:
 
     # Очистка списка.
     def clean(self):
-        dummy_head = Node(1, True)
-        dummy_tail = Node(1, True)
-        dummy_head.next = dummy_tail
-        dummy_tail.prev = dummy_head
-        self.head = dummy_head
-        self.tail = dummy_tail
+        self.head = Node(None, True)
+        self.tail = Node(None, True)
+        self.head.next = self.tail
+        self.tail.prev = self.head
         return None
 
     # Определение длины списка.
