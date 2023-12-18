@@ -39,8 +39,8 @@ class DynArray:
 
         # Если в массиве есть свободное место, то смещаем вперёд все элементы после индекса для вставки.
         if self.count < self.capacity:
-            for index in range(i, self.count):
-                self.array[index + 1] = self.array[index]
+            for index in range(self.count, i, -1):
+                self.array[index] = self.array[index - 1]
             self.array[i] = itm
 
         # Если места нет, то создаём новый массив.

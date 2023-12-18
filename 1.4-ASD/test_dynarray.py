@@ -38,47 +38,43 @@ class TestDynArray(TestCase):
             dynarray.append(element)
         self.assertEqual([el for el in range(100, 150)], list(dynarray.array._objects.values()))
 
-    def test_insert(self):
-        dynarray = DynArray()
-        dynarray.insert(0, 'first element')
-        self.assertEqual('first element', dynarray[0])
-        for element in range(25):
-            dynarray.append(element)
-        dynarray.insert(25, 'last but one element')
-        self.assertEqual('last but one element', dynarray[25])
-        dynarray.insert(26, 'second element')
-        self.assertEqual('second element', dynarray[26])
-        dynarray.insert(dynarray.count, 'third element')
-        self.assertEqual('third element', dynarray[dynarray.count - 1])
-
     def test_insert_when_the_buffer_size_is_not_exceeded(self):
         dynarray = DynArray()
+        for index in range(25):
+            dynarray.insert(index, index)
+
         dynarray.insert(0, 'first element')
         self.assertEqual('first element', dynarray[0])
-        for element in range(25):
-            dynarray.append(element)
+        self.assertEqual(0, dynarray[1])
+
         dynarray.insert(26, 'last element')
         self.assertEqual('last element', dynarray[26])
         self.assertEqual(32, dynarray.capacity)
-        for element in range(5):
-            dynarray.append(element)
+
+        dynarray.insert(20, 'element instead 20 index with value 19')
+        self.assertEqual('element instead 20 index with value 19', dynarray[20])
+        self.assertEqual(19, dynarray[21])
+        self.assertEqual(20, dynarray[22])
         self.assertEqual(32, dynarray.capacity)
-        self.assertEqual(32, dynarray.count)
+        self.assertEqual(28, dynarray.count)
 
     def test_insert_when_the_buffer_size_is_exceeded(self):
         dynarray = DynArray()
         dynarray.insert(0, 'first element')
         self.assertEqual('first element', dynarray[0])
+
         for element in range(25):
             dynarray.append(element)
-        dynarray.insert(26, 'last element')
-        self.assertEqual('last element', dynarray[26])
+        dynarray.insert(len(dynarray), 'last element')
+        self.assertEqual('last element', dynarray[len(dynarray) - 1])
         self.assertEqual(32, dynarray.capacity)
-        for index_element in range(27, 35):
-            dynarray.insert(index_element, index_element)
+
+        for element in range(27, 35):
+            dynarray.insert(len(dynarray) - 1, element)
         self.assertEqual(64, dynarray.capacity)
+
         for index_element in range(35, 80):
-            dynarray.insert(index_element, index_element)
+            dynarray.insert(len(dynarray) - 1, index_element)
         self.assertEqual(128, dynarray.capacity)
         self.assertEqual(80, dynarray.count)
 
