@@ -74,12 +74,13 @@ class TestDynArray(TestCase):
         dynarray.insert(26, 'last element')
         self.assertEqual('last element', dynarray[26])
         self.assertEqual(32, dynarray.capacity)
-        for element in range(25):
-            dynarray.append(element)
+        for index_element in range(27, 35):
+            dynarray.insert(index_element, index_element)
         self.assertEqual(64, dynarray.capacity)
-        for element in range(25):
-            dynarray.append(element)
+        for index_element in range(35, 80):
+            dynarray.insert(index_element, index_element)
         self.assertEqual(128, dynarray.capacity)
+        self.assertEqual(80, dynarray.count)
 
     def test_insert_into_invalid_position(self):
         dynarray = DynArray()

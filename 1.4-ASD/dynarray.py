@@ -55,7 +55,7 @@ class DynArray:
 
             # А все элементы после индекса для вставки смещаем вперёд.
             for index in range(i, self.count):
-                self.array[index + 1] = self.array[i]
+                new_array[index + 1] = self.array[i]
             self.array = new_array
             self.capacity = new_capacity
         self.count += 1
