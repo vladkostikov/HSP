@@ -137,16 +137,16 @@ class TestLinkedList(TestCase):
         first_list.add_in_tail(Node(4))
         first_list.add_in_tail(Node(8))
 
-        second_list.add_in_tail(Node(1))
-        second_list.add_in_tail(Node(2))
-        second_list.add_in_tail(Node(3))
-        second_list.add_in_tail(Node(4))
+        second_list.add_in_tail(Node(10))
+        second_list.add_in_tail(Node(20))
+        second_list.add_in_tail(Node(30))
+        second_list.add_in_tail(Node(40))
 
-        third_list.add_in_tail(Node(1))
-        third_list.add_in_tail(Node(2))
-        third_list.add_in_tail(Node(3))
+        third_list.add_in_tail(Node(100))
+        third_list.add_in_tail(Node(200))
+        third_list.add_in_tail(Node(300))
 
-        self.assertEqual([2, 4, 7, 12], first_list.sum_of_two_linked_lists(second_list))
+        self.assertEqual([11, 22, 34, 48], first_list.sum_of_two_linked_lists(second_list))
         self.assertEqual(None, first_list.sum_of_two_linked_lists(third_list))
         self.assertEqual(None, third_list.sum_of_two_linked_lists(first_list))
 

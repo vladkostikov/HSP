@@ -1,15 +1,19 @@
 class Node:
-    def __init__(self, v, dummy=False):
+    def __init__(self, v):
         self.value = v
-        self.dummy = dummy
         self.prev = None
         self.next = None
 
 
+class DummyNode(Node):
+    def __init__(self):
+        super().__init__(None)
+
+
 class LinkedList2:
     def __init__(self):
-        self.head = Node(None, True)
-        self.tail = Node(None, True)
+        self.head = DummyNode()
+        self.tail = DummyNode()
         self.head.next = self.tail
         self.tail.prev = self.head
 
@@ -24,15 +28,15 @@ class LinkedList2:
     # Печать всех узлов списка.
     def print_all_nodes(self):
         node = self.head.next
-        while node.dummy is False:
+        while type(node) is Node:
             print(node.value)
             node = node.next
         return None
 
     # Поиск первого узла с нужным значением.
     def find(self, val):
-        node = self.head
-        while node is not None:
+        node = self.head.next
+        while type(node) is Node:
             if node.value == val:
                 return node
             node = node.next
@@ -42,7 +46,7 @@ class LinkedList2:
     def find_all(self, val) -> list:
         nodes = []
         node = self.head.next
-        while node.dummy is False:
+        while type(node) is Node:
             if node.value == val:
                 nodes.append(node)
             node = node.next
@@ -51,7 +55,7 @@ class LinkedList2:
     # Удаление узла/узлов с нужным значением.
     def delete(self, val, delete_all=False):
         node = self.head.next
-        while node.dummy is False:
+        while type(node) is Node:
             # Переходим к следующему узлу, если значение не подходит.
             if node.value != val:
                 node = node.next
@@ -69,8 +73,8 @@ class LinkedList2:
 
     # Очистка списка.
     def clean(self):
-        self.head = Node(None, True)
-        self.tail = Node(None, True)
+        self.head = DummyNode()
+        self.tail = DummyNode()
         self.head.next = self.tail
         self.tail.prev = self.head
         return None
@@ -79,7 +83,7 @@ class LinkedList2:
     def len(self) -> int:
         length = 0
         node = self.head.next
-        while node.dummy is False:
+        while type(node) is Node:
             length += 1
             node = node.next
         return length
@@ -106,7 +110,7 @@ class LinkedList2:
         sum_of_lists = []
         first_node = self.head.next
         second_node = second_list.head.next
-        while first_node.dummy is False:
+        while type(first_node) is Node:
             sum_of_lists.append(first_node.value + second_node.value)
             first_node = first_node.next
             second_node = second_node.next
