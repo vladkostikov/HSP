@@ -13,7 +13,7 @@ class DummyNode(Node):
 class LinkedList2:
     def __init__(self):
         self.head = DummyNode()
-        self.tail = DummyNode()
+        self.tail = self.head
         self.head.next = self.tail
         self.tail.prev = self.head
 
