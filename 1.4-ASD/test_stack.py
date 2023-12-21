@@ -1,5 +1,6 @@
 from unittest import TestCase
 from stack import Stack
+from stack import check_balance_of_brackets
 
 
 class TestStack(TestCase):
@@ -45,16 +46,16 @@ class TestStack(TestCase):
         self.assertEqual(20, stack.peek())
 
     def test_check_balance_of_brackets(self):
-        self.assertTrue(Stack().check_balance_of_brackets("()"))
-        self.assertTrue(Stack().check_balance_of_brackets("(()((())()))"))
-        self.assertTrue(Stack().check_balance_of_brackets("(()()())"))
-        self.assertTrue(Stack().check_balance_of_brackets("((()(()))())"))
-        self.assertTrue(Stack().check_balance_of_brackets(""))
-        self.assertFalse(Stack().check_balance_of_brackets("("))
-        self.assertFalse(Stack().check_balance_of_brackets(")"))
-        self.assertFalse(Stack().check_balance_of_brackets(")())"))
-        self.assertFalse(Stack().check_balance_of_brackets("())("))
-        self.assertFalse(Stack().check_balance_of_brackets("(()()(()"))
-        self.assertFalse(Stack().check_balance_of_brackets("())("))
-        self.assertFalse(Stack().check_balance_of_brackets("))(("))
-        self.assertFalse(Stack().check_balance_of_brackets("((())"))
+        self.assertTrue(check_balance_of_brackets("()"))
+        self.assertTrue(check_balance_of_brackets("(()((())()))"))
+        self.assertTrue(check_balance_of_brackets("(()()())"))
+        self.assertTrue(check_balance_of_brackets("((()(()))())"))
+        self.assertTrue(check_balance_of_brackets(""))
+        self.assertFalse(check_balance_of_brackets("("))
+        self.assertFalse(check_balance_of_brackets(")"))
+        self.assertFalse(check_balance_of_brackets(")())"))
+        self.assertFalse(check_balance_of_brackets("())("))
+        self.assertFalse(check_balance_of_brackets("(()()(()"))
+        self.assertFalse(check_balance_of_brackets("())("))
+        self.assertFalse(check_balance_of_brackets("))(("))
+        self.assertFalse(check_balance_of_brackets("((())"))

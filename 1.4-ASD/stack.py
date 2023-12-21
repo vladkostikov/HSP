@@ -22,14 +22,15 @@ class Stack:
             return self.stack[0]
         return None
 
-    # Проверка сбалансированности скобок.
-    def check_balance_of_brackets(self, brackets: str) -> bool:
-        for bracket in brackets:
-            if bracket == '(':
-                self.push(bracket)
-                continue
-            if bracket == ')' and self.peek() == '(':
-                self.pop()
-                continue
-            return False
-        return self.size() == 0
+# Проверка сбалансированности скобок.
+def check_balance_of_brackets(brackets: str) -> bool:
+    stack = Stack()
+    for bracket in brackets:
+        if bracket == '(':
+            stack.push(bracket)
+            continue
+        if bracket == ')' and stack.peek() == '(':
+            stack.pop()
+            continue
+        return False
+    return stack.size() == 0
