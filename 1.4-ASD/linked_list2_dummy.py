@@ -74,7 +74,7 @@ class LinkedList2:
     # Очистка списка.
     def clean(self):
         self.head = DummyNode()
-        self.tail = DummyNode()
+        self.tail = self.head
         self.head.next = self.tail
         self.tail.prev = self.head
         return None
