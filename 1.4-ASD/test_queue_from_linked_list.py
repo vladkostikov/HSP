@@ -1,5 +1,5 @@
 from unittest import TestCase
-from queue import Queue
+from queue_from_linked_list import Queue
 
 
 class TestQueue(TestCase):
