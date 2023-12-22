@@ -8,19 +8,35 @@ class Queue:
         return self.data.push(item)
 
     # Выдача из начала очереди.
-    # Сложность O(1), т.к. используем стек.
+    # Сложность O(2n), т.к. при использовании стека копируем все элементы
+    # в дополнительный массив, а потом обратно.
     def dequeue(self):
-        return self.data.pop_from_head()
+        current_stack = self.data
+        additional_stack = Stack()
+
+        for _i in range(current_stack.size() - 1):
+            additional_stack.push(current_stack.pop())
+        deleted_value = current_stack.pop()
+
+        for _i in range(additional_stack.size()):
+            current_stack.push(additional_stack.pop())
+
+        return deleted_value
 
     # Размер очереди.
     # Сложность O(1), т.к. длину храним в виде атрибута в связном списке.
     def size(self) -> int:
         return self.data.size()
 
-    # Вращает очередь по кругу на N элементов.
+    # Вращает очередь по кругу на m элементов.
     # Первый элемент перемещается на последнее место.
-    # Сложность O(N), где N - на сколько элементов нужно произвести вращение.
-    # N всегда меньше размера очереди.
+    # Сложность:
+    # n - количество элементов в очереди.
+    # m - на сколько элементов нужно произвести вращение.
+    # В худшем случае O(2n * (n - 1)) ≈ O(n^2), когда вращаем на 1 элемент меньше, чем длина очереди.
+    # В среднем o(2n * m), когда вращаем на m элементов.
+    # В лучшем случае Ω(1), когда m равняется длине очереди и вращение не требуется.
+    # При превышении m длины очереди, m равняется остатку от деления m на длину очереди.
     def rotate(self, spins: int):
         queue_size = self.size()
         if queue_size == 0:
@@ -50,12 +66,6 @@ class Stack:
             return self.data.delete_from_tail().value
         return None
 
-    # Удаление элемента из начала стека.
-    def pop_from_head(self):
-        if self.size() > 0:
-            return self.data.delete_from_head().value
-        return None
-
     # Возвращает верхушку стека, последний элемент.
     def peek(self):
         if self.size() > 0:
@@ -83,15 +93,6 @@ class LinkedList:
         self.tail.prev = self.head
         self.length = 0
 
-    # Добавление узла в начало списка.
-    def add_in_head(self, new_node):
-        new_node.prev = self.head
-        new_node.next = self.head.next
-        self.head.next.prev = new_node
-        self.head.next = new_node
-        self.length += 1
-        return self.first()
-
     # Добавление узла в конец списка.
     def add_in_tail(self, item):
         self.tail.prev.next = item
@@ -107,21 +108,6 @@ class LinkedList:
             node.prev.next = node.next
             self.tail.prev = node.prev
             self.length -= 1
-            return node
-        return None
-
-    def delete_from_head(self):
-        node = self.head.next
-        if type(node) is Node:
-            node.prev.next = node.next
-            node.next.prev = node.prev
-            self.length -= 1
-            return node
-        return None
-
-    def first(self):
-        node = self.head.next
-        if type(node) is Node:
             return node
         return None
 

@@ -14,6 +14,7 @@ class TestQueue(TestCase):
 
     def test_dequeue(self):
         queue = Queue()
+        self.assertIsNone(queue.dequeue())
         queue.enqueue(10)
         queue.enqueue(20)
         queue.enqueue(30)
@@ -39,23 +40,23 @@ class TestQueue(TestCase):
         queue.dequeue()
         self.assertEqual(0, queue.size())
 
-    def test_queue_with_10_000_elements(self):
+    def test_queue_with_500_elements(self):
         queue = Queue()
-        for element in range(10000):
+        for element in range(500):
             queue.enqueue(element)
             self.assertEqual(element + 1, queue.size())
-        for element in range(10000):
+        for element in range(500):
             queue.dequeue()
-            self.assertEqual(10000 - element - 1, queue.size())
+            self.assertEqual(500 - element - 1, queue.size())
         for element in range(5):
             queue.dequeue()
             self.assertEqual(0, queue.size())
 
     def test_rotate(self):
         queue = Queue()
-        for element in range(100):
+        for element in range(500):
             queue.enqueue(element)
-        queue.rotate(100)
+        queue.rotate(queue.size())
         self.assertEqual(0, queue.dequeue())
         queue.rotate(5)
         self.assertEqual(6, queue.dequeue())
