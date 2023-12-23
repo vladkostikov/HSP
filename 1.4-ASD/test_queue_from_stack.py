@@ -40,14 +40,14 @@ class TestQueue(TestCase):
         queue.dequeue()
         self.assertEqual(0, queue.size())
 
-    def test_queue_with_500_elements(self):
+    def test_queue_with_100_000_elements(self):
         queue = Queue()
-        for element in range(500):
+        for element in range(100_000):
             queue.enqueue(element)
             self.assertEqual(element + 1, queue.size())
-        for element in range(500):
+        for element in range(100_000):
             queue.dequeue()
-            self.assertEqual(500 - element - 1, queue.size())
+            self.assertEqual(100_000 - element - 1, queue.size())
         for element in range(5):
             queue.dequeue()
             self.assertEqual(0, queue.size())

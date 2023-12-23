@@ -1,42 +1,38 @@
 class Queue:
     def __init__(self):
-        self.data = Stack()
+        self.enqueue_stack = Stack()
+        self.dequeue_stack = Stack()
 
     # Вставка в конец очереди.
     # Сложность O(1), т.к. используем стек.
     def enqueue(self, item):
-        return self.data.push(item)
+        return self.enqueue_stack.push(item)
 
     # Выдача из начала очереди.
-    # Сложность O(2n), т.к. при использовании стека копируем все элементы
-    # в дополнительный массив, а потом обратно.
+    # Сложность:
+    # В худшем случае O(n), когда dequeue_stack пуст и нужно перенести элементы
+    # из enqueue_stack в dequeue_stack.
+    # В среднем o(1), когда в dequeue_stack есть элементы.
     def dequeue(self):
-        current_stack = self.data
-        additional_stack = Stack()
+        if self.dequeue_stack.size() > 0:
+            return self.dequeue_stack.pop()
 
-        for _i in range(current_stack.size() - 1):
-            additional_stack.push(current_stack.pop())
-        deleted_value = current_stack.pop()
+        for _i in range(self.enqueue_stack.size()):
+            self.dequeue_stack.push(self.enqueue_stack.pop())
 
-        for _i in range(additional_stack.size()):
-            current_stack.push(additional_stack.pop())
-
-        return deleted_value
+        return self.dequeue_stack.pop()
 
     # Размер очереди.
     # Сложность O(1), т.к. длину храним в виде атрибута в связном списке.
     def size(self) -> int:
-        return self.data.size()
+        return self.enqueue_stack.size() + self.dequeue_stack.size()
 
     # Вращает очередь по кругу на m элементов.
     # Первый элемент перемещается на последнее место.
     # Сложность:
-    # n - количество элементов в очереди.
-    # m - на сколько элементов нужно произвести вращение.
-    # В худшем случае O(2n * (n - 1)) ≈ O(n^2), когда вращаем на 1 элемент меньше, чем длина очереди.
-    # В среднем o(2n * m), когда вращаем на m элементов.
+    # В худшем случае O(n), когда вращаем на 1 элемент и dequeue_stack пуст.
+    # В среднем o(1).
     # В лучшем случае Ω(1), когда m равняется длине очереди и вращение не требуется.
-    # При превышении m длины очереди, m равняется остатку от деления m на длину очереди.
     def rotate(self, spins: int):
         queue_size = self.size()
         if queue_size == 0:
