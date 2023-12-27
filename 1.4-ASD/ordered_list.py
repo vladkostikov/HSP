@@ -29,15 +29,9 @@ class OrderedList:
         if self.head is None:
             self.head = new_node
             self.tail = new_node
-            new_node.prev = new_node
-            new_node.next = new_node
             return new_node.value
 
         while node is not None:
-            if self.head is self.tail:
-                self.head.prev = None
-                self.head.next = None
-
             comparison = self.compare(new_node.value, node.value)
             # Вставляем новый элемент перед текущим элементом если:
             # 1. порядок по возрастанию и новый элемент меньше или равен текущему элементу.
@@ -120,10 +114,6 @@ class OrderedList:
         length = 0
         node = self.head
         while node is not None:
-            if self.head == self.tail:
-                length += 1
-                break
-
             length += 1
             node = node.next
         return length
