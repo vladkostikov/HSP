@@ -89,6 +89,7 @@ class TestOrderedList(TestCase):
                 None
             self.assertEqual(ordered_list.head.value, ordered_list.delete(ordered_list.head.value))
         self.assertEqual(0, ordered_list.len())
+        self.assertIsNone(ordered_list.delete(10))
 
     def test_clean(self):
         ordered_list = OrderedList(True)

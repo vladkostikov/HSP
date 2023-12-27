@@ -58,6 +58,10 @@ class OrderedList:
         return new_node.value
 
     def find(self, value):
+        # Пустой список.
+        if self.head is None:
+            return None
+
         # Если значение меньше, чем минимум или больше, чем максимум, то
         # нужное значение в списке отсутствует.
         if self.__ascending and (value < self.head.value or value > self.tail.value):
