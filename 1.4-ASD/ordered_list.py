@@ -5,17 +5,10 @@ class Node:
         self.next = None
 
 
-class DummyNode(Node):
-    def __init__(self):
-        super().__init__(None)
-
-
 class OrderedList:
     def __init__(self, asc):
-        self.head = DummyNode()
-        self.tail = self.head
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.head = None
+        self.tail = None
         self.__ascending = asc
 
     # -1 если new_value < old_value
@@ -31,8 +24,20 @@ class OrderedList:
     # Автоматическая вставка value в нужную позицию.
     def add(self, value):
         new_node = Node(value)
-        node = self.head.next
-        while type(node) is Node:
+        node = self.head
+
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+            new_node.prev = new_node
+            new_node.next = new_node
+            return new_node.value
+
+        while node is not None:
+            if self.head is self.tail:
+                self.head.prev = None
+                self.head.next = None
+
             comparison = self.compare(new_node.value, node.value)
             # Вставляем новый элемент перед текущим элементом если:
             # 1. порядок по возрастанию и новый элемент меньше или равен текущему элементу.
@@ -41,28 +46,33 @@ class OrderedList:
                     (not self.__ascending and comparison in (1, 0))):
                 new_node.prev = node.prev
                 new_node.next = node
-                node.prev.next = new_node
+
+                # Проверяем что вставка происходит в начало списка.
+                if node.prev is None:
+                    self.head = new_node
+                elif node.prev is not None:
+                    node.prev.next = new_node
+
                 node.prev = new_node
                 return new_node.value
             node = node.next
 
         # Вставляем новый элемент в конец списка.
-        new_node.prev = self.tail.prev
-        new_node.next = self.tail
-        self.tail.prev.next = new_node
-        self.tail.prev = new_node
+        new_node.prev = self.tail
+        self.tail.next = new_node
+        self.tail = new_node
         return new_node.value
 
     def find(self, value):
         # Если значение меньше, чем минимум или больше, чем максимум, то
         # нужное значение в списке отсутствует.
-        if self.__ascending and (value < self.head.next.value or value > self.tail.prev.value):
+        if self.__ascending and (value < self.head.value or value > self.tail.value):
             return None
 
-        if not self.__ascending and (value > self.head.next.value or value < self.tail.prev.value):
+        if not self.__ascending and (value > self.head.value or value < self.tail.value):
             return None
 
-        node = self.head.next
+        node = self.head
         while type(node) is Node:
             # Прерывание поиска если найден заведомо больший или меньший элемент, чем искомый.
             if self.__ascending and node.value > value:
@@ -80,29 +90,48 @@ class OrderedList:
         if node is None:
             return None
 
-        node.prev.next = node.next
-        node.next.prev = node.prev
+        # Когда удаляем последний элемент.
+        if self.head is self.tail:
+            self.clean(self.__ascending)
+            return node.value
+
+        if node is self.head:
+            node.next.prev = None
+            self.head = node.next
+        elif node is self.tail:
+            node.prev.next = None
+            self.tail = node.prev
+        else:
+            node.prev.next = node.next
+            node.next.prev = node.prev
+
+        # Когда удаляем предпоследний элемент.
+        if self.head == self.tail:
+            self.head.next = self.tail
+            self.tail.prev = self.head
         return node.value
 
     def clean(self, asc):
-        self.head = DummyNode()
-        self.tail = self.head
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.head = None
+        self.tail = None
         self.__ascending = asc
 
     def len(self):
         length = 0
-        node = self.head.next
-        while type(node) is Node:
+        node = self.head
+        while node is not None:
+            if self.head == self.tail:
+                length += 1
+                break
+
             length += 1
             node = node.next
         return length
 
     def get_all(self):
         result = []
-        node = self.head.next
-        while type(node) is Node:
+        node = self.head
+        while node is not None:
             result.append(node)
             node = node.next
         return result
