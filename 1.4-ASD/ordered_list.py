@@ -99,10 +99,6 @@ class OrderedList:
             node.prev.next = node.next
             node.next.prev = node.prev
 
-        # Когда удаляем предпоследний элемент.
-        if self.head == self.tail:
-            self.head.next = self.tail
-            self.tail.prev = self.head
         return node.value
 
     def clean(self, asc):

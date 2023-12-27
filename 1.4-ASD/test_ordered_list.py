@@ -85,6 +85,8 @@ class TestOrderedList(TestCase):
         self.assertIsNone(ordered_list.delete(50))
 
         for _i in range(ordered_list.len()):
+            if _i == 96:
+                None
             self.assertEqual(ordered_list.head.value, ordered_list.delete(ordered_list.head.value))
         self.assertEqual(0, ordered_list.len())
 
