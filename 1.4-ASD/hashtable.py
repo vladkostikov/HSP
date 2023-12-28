@@ -40,7 +40,6 @@ class HashTable:
     def find(self, value):
         slot = self.hash_fun(value)
         for _i in range(self.size):
-            print(slot)
             if self.slots[slot] == value:
                 return slot
             slot += self.step
