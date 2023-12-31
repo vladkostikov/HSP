@@ -26,8 +26,6 @@ class PowerSet:
     def intersection(self, set2):
         intersection_set = PowerSet()
         for value in set2.slots:
-            if value is None:
-                continue
             if self.get(value):
                 intersection_set.put(value)
 
@@ -37,13 +35,9 @@ class PowerSet:
     def union(self, set2):
         union_set = PowerSet()
         for value in self.slots:
-            if value is None:
-                continue
             union_set.put(value)
 
         for value in set2.slots:
-            if value is None:
-                continue
             union_set.put(value)
 
         return union_set
