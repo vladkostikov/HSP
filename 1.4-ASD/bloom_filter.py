@@ -37,6 +37,4 @@ class BloomFilter:
         bit1 = 1 << bit_index1
         bit2 = 1 << bit_index2
 
-        if (self.filter & bit1 == bit1) and (self.filter & bit2 == bit2):
-            return True
-        return False
+        return (self.filter & bit1 == bit1) and (self.filter & bit2 == bit2)
