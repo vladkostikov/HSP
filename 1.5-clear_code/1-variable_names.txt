@@ -1,0 +1,36 @@
+history - history_of_changes
+// Массив с историей изменений.
+
+index - index_of_symbol_with_value_less_than_the_current
+// Индекс символа со значением меньше, чем текущее.
+
+day - day_of_operation
+// День операции.
+
+bridgehead - bridgehead_with_day_of_capture_of_cell
+// Массив ячеек из строк и столбцов, означающий плацдарм.
+// Значением является день захвата конкретной ячейки.
+
+new_placement - new_placement_of_footballers
+// Массив с новой расстановкой футболистов.
+
+splitted_line - combinations_found_in_the_string
+// Массив комбинаций найденных в строке.
+
+length - number_of_combinations
+// Количество комбинаций.
+
+costs - costs_of_printing_characters
+// Хэш с затратами на печать каждого символа.
+
+frequency - symbols_and_their_quantities
+// Хэш символов с их количеством в строке.
+
+minimum - minimum_quantity_of_symbols
+// Минимальное количество символов найденных в строке.
+
+new_values - quantities_without_minimum_value
+// Массив с количеством символов в строке после удаления минимального значения.
+
+first_node - node_in_the_first_list
+// Нода в первом связном списке.
