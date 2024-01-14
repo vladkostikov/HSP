@@ -1,0 +1,48 @@
+6.1
+heights - heights_for_landing
+// Массив с координатами высот для высадок.
+
+discounts - discounted_items
+// Массив вещей полученных по скидке.
+
+center - center_index_of_data
+// Индекс центра данных.
+
+primary_array - array_after_1_transform
+// Массив после первого преобразования.
+
+magic - string_for_transform
+// Строка для преобразования.
+
+
+6.2
+bridgehead_flatten
+// Двумерный массив после преобразовали в одномерный.
+
+undo_flag
+// Флаг отвечающий за отмену действия. Становится True при отмене действия.
+
+splitted_line
+// Массив строк после разделения исходной строки по шаблону.
+
+prepared_string
+// Предварительно обработанная строка для дальнейших действий.
+
+
+6.3
+last_char_for_step
+// Для каждого шага последняя буква устанавливается разная.
+
+size_of_max_submatrix
+// В ходе вычисления находится размер максимальной субматрицы.
+
+spiral
+// Элементы матрицы разбираются по спирали, поэтому переменной дано такое имя.
+
+
+6.4
+difference_without_leading_zeros - prepared_difference
+
+minimum_number_in_the_following_indexes - minimum_in_next_indexes
+
+position_maximum_in_values - maximum_index
