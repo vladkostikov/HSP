@@ -1,0 +1,23 @@
+result - substring_in_lines
+
+result - calculated_value
+
+result - nodes
+
+counter - first_match_count
+
+winner_votes - num_votes_of_winner
+
+emeralds - num_emeralds
+
+speeds - speeds_kmh
+
+times - times_hours
+
+stopping_time - stopping_time_seconds
+
+total_time - time_seconds_total
+
+counter - num_repeated_values
+
+center - center_index
