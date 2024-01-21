@@ -1,0 +1,15 @@
+3.1
+IAuthor - AuthorInterface
+Palindrome - PalindromeChecker
+ScanNumber - NumberScanner
+FileSearch - FileFinder
+GeneratorOfBalancedBrackets - BalancedBracketsGenerator
+
+3.2
+add_author - create_author
+get_author_info - find_author
+find_all_books_by_author - find_books_by_author
+check_book - is_book_exists
+check_palindrome - is_palindrome
+check_balance_of_brackets - is_balanced_brackets
+celsius_to_fahrenheit - convert_celsius_to_fahrenheit
