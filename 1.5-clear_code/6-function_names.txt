@@ -1,0 +1,23 @@
+list_length_with_pop - calc_length_of_list_by_pop - Считает длину списка методом pop. "_by_pop" думаю не нужно, т.к. это подробности реализации.
+
+printing_even_values - print_even_values - Печатает чётные значения. Название должно быть глаголом.
+
+chars_to_matrix - convert_chars_to_matrix - Пробразовывает символы в матрицу.
+
+transformative_transformation - transformate_list - Преобразовывает список.  Название было непонятное.
+
+wialon_check_connection - check_connection_to_wialon - Проверяет подключения к сервису.
+
+homework_status_process - process_status_of_homework - Изменяет статус домашнего задания(не всегда) и делает побочный эффект. Желательно разделить на несколько методов.
+
+pending_email - create_email_to_user - Формирует электронное письмо для отправки пользователю. Название было непонятное.
+
+checksum - calc_checksum - Рассчитывает контрольную сумму для номера.
+
+comments_find - find_comments - Ищет комментарии к записи.
+
+replies_find - find_replies - Ищет ответы к коментариям.
+
+from_file - get_book_info_from_file - Берёт информацию о книге из файла.
+
+builder - build_fake_fish - Создаёт фиктивную рыбу.
