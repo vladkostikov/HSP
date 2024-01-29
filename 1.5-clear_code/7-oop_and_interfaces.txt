@@ -1,0 +1,9 @@
+3.1
+user = User.create_admin()
+courier.transport = Transport.create_bicycle()
+button_group = UIFramework.create_buttons_for_user(user)
+
+3.2
+GUIFactory
+FurnitureFactory
+CarFactory
