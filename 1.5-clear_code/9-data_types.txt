@@ -1,0 +1,135 @@
+1.
+До:
+if step >= len(string) // 2:
+  something...
+
+После:
+center_of_string = len(string) // 2
+is_all_chars_checked = step >= center_of_string
+if is_all_chars_checked:
+  something...
+
+// Перенёс в логическую переменную флаг означающий, что все символы проверены.
+
+2.
+До:
+if bit_array[number + len(bit_array) // 2] == False:
+  something...
+
+После:
+is_number_repeated = bit_array[number + len(bit_array) // 2] == True
+if is_number_repeated:
+  something...
+
+// Перенёс в логическую переменную флаг означающий, что число встречено повторно.
+
+3.
+До:
+if len(current_string) > index and len(current_string) > -index:
+  something...
+
+После:
+is_index_exist = len(current_string) > index and len(current_string) > -index
+if is_index_exist:
+  something...
+
+// Перенёс в логическую переменную флаг означающий, что индекс находится в пределах строки.
+
+4.
+До:
+keypad = [[6, 1, 9], [5, 2, 8], [4, 3, 7]]
+
+После:
+KEYPAD = [[6, 1, 9], [5, 2, 8], [4, 3, 7]]
+
+// Сделал массив константой, чтобы показать, что он точно не должен изменяться.
+
+5.
+До:
+0x0001000000
+
+После:
+COMMAND_EXECUTION_CODE = 0x0001000000
+
+// Перенёс код для выполнения команд в константу.
+
+6.
+До:
+"Спасибо! Мы получили ваше обращение..."
+
+После:
+EMAIL_NOTICE_TEMPLATE = "Спасибо! Мы получили ваше обращение..."
+
+// Перенёс шаблон email уведомления в константу.
+
+7.
+До:
+if weight <= get_ideal_weight(params):
+  something...
+
+После:
+is_weight_ideal = weight <= get_ideal_weight(params)
+if is_weight_ideal:
+  something...
+
+// Перенёс в переменную результат проверки идеальности веса.
+
+8.
+До:
+for side in sides:
+  if side > 0:
+    something...
+
+После:
+for side in sides:
+  is_side_positive = side > 0
+  if is_side_positive:
+    something...
+
+// Перенёс в переменную результат проверки стороны.
+
+9.
+До:
+if hypotenuse < cathetus1 + cathetus2:
+  something...
+
+После:
+is_triangle_exist = hypotenuse < cathetus1 + cathetus2
+if is_triangle_exist:
+  something...
+
+Перенёс в переменную результат проверки существования треугольника.
+
+10.
+До:
+if title.upcase == "СТОП":
+  break
+
+После:
+STOPWORD = "СТОП"
+is_title_stopword = title == STOPWORD
+if is_title_stopword:
+  break
+
+Перенёс стоп-слово в константу и добавил переменную для результата проверки стоп-слова в названии.
+
+11.
+До:
+while left_index < right_index:
+  something...
+
+После:
+is_array_unsorted = left_index < right_index
+while is_array_unsorted:
+  something...
+
+Перенёс в переменную результат проверки отсортированности массива.
+
+12.
+До:
+"Добро пожаловать в бот..."
+
+После:
+I18n.translate(bot.welcome_message)
+
+Перенёс приветствие в модуль интернационализации.
