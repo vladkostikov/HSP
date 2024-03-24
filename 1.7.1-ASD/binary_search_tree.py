@@ -9,7 +9,7 @@ class BSTNode:
     def is_leaf(self) -> bool:
         return self.LeftChild is None and self.RightChild is None
 
-    def has_child(self) -> bool:
+    def has_one_child(self) -> bool:
         return (self.LeftChild is not None and self.RightChild is None) or (
                     self.LeftChild is None and self.RightChild is not None)
 
@@ -93,7 +93,7 @@ class BST:
             return self._delete_leaf(node_to_delete)
 
         # Удаление узла с одним потомком.
-        if node_to_delete.has_child():
+        if node_to_delete.has_one_child():
             return self._delete_node_with_one_child(node_to_delete)
 
         # Удаление узла с двумя потомками.
@@ -123,14 +123,22 @@ class BST:
         return node
 
     def _delete_leaf(self, node: BSTNode) -> bool:
+        if self._is_node_root(node):
+            self.Root = None
+            return True
         parent = node.Parent
         return parent.delete_child(node)
 
     def _delete_node_with_one_child(self, node: BSTNode) -> bool:
         if node.LeftChild is not None:
             successor_node = node.LeftChild
-        else:
+        if node.RightChild is not None:
             successor_node = node.RightChild
+
+        if self._is_node_root(node):
+            successor_node.Parent = None
+            self.Root = successor_node
+            return True
 
         parent = node.Parent
         if node is parent.LeftChild:
@@ -143,22 +151,38 @@ class BST:
 
     def _delete_node_with_two_child(self, node: BSTNode) -> bool:
         successor_node = self.FinMinMax(node.RightChild, False)
-        parent = node.Parent
+
+        if self._is_node_root(node):
+            parent = None
+
+        if not self._is_node_root(node):
+            parent = node.Parent
+
         if successor_node.is_leaf():
             successor_node.Parent.LeftChild = None
             successor_node.Parent = parent
 
         if not successor_node.is_leaf():
             successor_node.Parent.LeftChild = successor_node.RightChild
-            successor_node.Parent = parent
             successor_node.RightChild.Parent = successor_node.Parent
+            successor_node.Parent = parent
 
+        # Указываем преемнику потомков удаляемого узла.
         successor_node.LeftChild = node.LeftChild
         successor_node.LeftChild.Parent = successor_node
         successor_node.RightChild = node.RightChild
         successor_node.RightChild.Parent = successor_node
+
+        if self._is_node_root(node):
+            self.Root = successor_node
+            return True
         if node is parent.LeftChild:
             parent.LeftChild = successor_node
+            return True
         if node is parent.RightChild:
             parent.RightChild = successor_node
-        return True
+            return True
+        return False
+
+    def _is_node_root(self, node):
+        return node is self.Root

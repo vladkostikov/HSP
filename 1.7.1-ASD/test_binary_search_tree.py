@@ -161,6 +161,59 @@ class TestBST(TestCase):
         self.assertEqual(230, parent.RightChild.RightChild.LeftChild.NodeKey)
         self.assertEqual(235, parent.RightChild.RightChild.LeftChild.RightChild.NodeKey)
 
+    def test_delete_root_node_by_key(self):
+        bst = BST(BSTNode(100, 100, None))
+
+        # Проверяем удаление корневого узла без потомков.
+        node_to_delete = bst.FindNodeByKey(100).Node
+        self.assertIsNone(node_to_delete.Parent)
+        self.assertIsNone(node_to_delete.Parent)
+        self.assertIsNone(node_to_delete.LeftChild)
+        self.assertIsNone(node_to_delete.RightChild)
+        self.assertTrue(bst.DeleteNodeByKey(100))
+        self.assertIsNone(bst.Root)
+
+        # Проверяем удаление корневого узла с одним потомком.
+        bst = BST(BSTNode(100, 100, None))
+        bst.AddKeyValue(50, 50)
+        bst.AddKeyValue(40, 40)
+        bst.AddKeyValue(60, 60)
+        bst.AddKeyValue(30, 30)
+        node_to_delete = bst.FindNodeByKey(100).Node
+        self.assertIsNone(node_to_delete.Parent)
+        self.assertIsNone(node_to_delete.Parent)
+        self.assertIsNotNone(node_to_delete.LeftChild)
+        self.assertIsNone(node_to_delete.RightChild)
+        self.assertTrue(bst.DeleteNodeByKey(100))
+        self.assertEqual(50, bst.Root.NodeKey)
+        self.assertIsNone(bst.Root.Parent)
+        self.assertEqual(40, bst.Root.LeftChild.NodeKey)
+        self.assertEqual(60, bst.Root.RightChild.NodeKey)
+
+        # Проверяем удаление корневого узла с двумя потомками.
+        bst = BST(BSTNode(100, 100, None))
+        bst.AddKeyValue(50, 50)
+        bst.AddKeyValue(40, 40)
+        bst.AddKeyValue(60, 60)
+        bst.AddKeyValue(30, 30)
+        bst.AddKeyValue(200, 200)
+        bst.AddKeyValue(150, 150)
+        bst.AddKeyValue(180, 180)
+        bst.AddKeyValue(175, 175)
+        bst.AddKeyValue(185, 185)
+        bst.AddKeyValue(250, 250)
+        node_to_delete = bst.FindNodeByKey(100).Node
+        self.assertIsNone(node_to_delete.Parent)
+        self.assertIsNone(node_to_delete.Parent)
+        self.assertTrue(bst.DeleteNodeByKey(100))
+        self.assertEqual(150, bst.Root.NodeKey)
+        self.assertIsNone(bst.Root.Parent)
+        self.assertEqual(50, bst.Root.LeftChild.NodeKey)
+        self.assertEqual(200, bst.Root.RightChild.NodeKey)
+        self.assertEqual(180, bst.Root.RightChild.LeftChild.NodeKey)
+        self.assertEqual(200, bst.Root.RightChild.LeftChild.Parent.NodeKey)
+        self.assertEqual(250, bst.Root.RightChild.RightChild.NodeKey)
+
     def test_count(self):
         bst = BST(None)
         self.assertEqual(0, bst.Count())
