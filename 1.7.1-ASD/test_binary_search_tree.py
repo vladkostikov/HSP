@@ -244,3 +244,27 @@ class TestBST(TestCase):
 
         self.assertFalse(bst.DeleteNodeByKey(1000))
         self.assertEqual(5, bst.Count())
+
+    def test_wide_all_nodes(self):
+        bst = BST(None)
+        self.assertEqual((), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+
+        bst = BST(BSTNode(100, 100, None))
+        self.assertEqual((100,), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+        bst.AddKeyValue(50, 50)
+        bst.AddKeyValue(40, 40)
+        bst.AddKeyValue(60, 60)
+        self.assertEqual((100, 50, 40, 60), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+
+        bst.AddKeyValue(30, 30)
+        bst.AddKeyValue(200, 200)
+        self.assertEqual((100, 50, 200, 40, 60, 30), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+
+        bst.AddKeyValue(150, 150)
+        bst.AddKeyValue(250, 250)
+        self.assertEqual((100, 50, 200, 40, 60, 150, 250, 30), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+
+        bst.AddKeyValue(180, 180)
+        bst.AddKeyValue(175, 175)
+        bst.AddKeyValue(185, 185)
+        self.assertEqual((100, 50, 200, 40, 60, 150, 250, 30, 180, 175, 185), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))

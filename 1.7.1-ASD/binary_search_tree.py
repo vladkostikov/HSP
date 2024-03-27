@@ -34,7 +34,7 @@ class BSTFind:
 
 
 class BST:
-    def __init__(self, node):
+    def __init__(self, node: BSTNode):
         self.Root = node
 
     def FindNodeByKey(self, key) -> BSTFind:
@@ -104,6 +104,32 @@ class BST:
 
     def Count(self) -> int:
         return self._count(self.Root)
+
+    # Обход в ширину.
+    def WideAllNodes(self) -> tuple:
+        nodes = ()
+        if type(self.Root) is not BSTNode:
+            return nodes
+        nodes += (self.Root,)
+
+        next_level = self._find_next_level_nodes((self.Root,))
+        while len(next_level) > 0:
+            nodes += next_level
+            next_level = self._find_next_level_nodes(next_level)
+
+        return nodes
+
+    def _find_next_level_nodes(self, current_level: tuple) -> tuple:
+        next_level = ()
+        for node in current_level:
+            left_node = node.LeftChild
+            right_node = node.RightChild
+            if type(left_node) is BSTNode:
+                next_level += (left_node,)
+            if type(right_node) is BSTNode:
+                next_level += (right_node,)
+
+        return next_level
 
     def _count(self, node) -> int:
         if node is None:
