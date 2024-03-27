@@ -268,3 +268,33 @@ class TestBST(TestCase):
         bst.AddKeyValue(175, 175)
         bst.AddKeyValue(185, 185)
         self.assertEqual((100, 50, 200, 40, 60, 150, 250, 30, 180, 175, 185), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+
+    def test_deep_all_nodes(self):
+        bst = BST(None)
+        self.assertEqual((), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(0))))
+        self.assertEqual((), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(1))))
+        self.assertEqual((), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(2))))
+
+        bst = BST(BSTNode(100, 100, None))
+        self.assertEqual((100,), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(0))))
+        self.assertEqual((100,), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(1))))
+        self.assertEqual((100,), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(2))))
+
+        bst.AddKeyValue(50, 50)
+        bst.AddKeyValue(40, 40)
+        bst.AddKeyValue(60, 60)
+        self.assertEqual((40, 50, 60, 100), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(0))))
+        self.assertEqual((40, 60, 50, 100), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(1))))
+        self.assertEqual((100, 50, 40, 60), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(2))))
+
+        bst.AddKeyValue(30, 30)
+        bst.AddKeyValue(200, 200)
+        self.assertEqual((30, 40, 50, 60, 100, 200), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(0))))
+        self.assertEqual((30, 40, 60, 50, 200, 100), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(1))))
+        self.assertEqual((100, 50, 40, 30, 60, 200), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(2))))
+
+        bst.AddKeyValue(150, 150)
+        bst.AddKeyValue(250, 250)
+        self.assertEqual((30, 40, 50, 60, 100, 150, 200, 250), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(0))))
+        self.assertEqual((30, 40, 60, 50, 150, 250, 200, 100), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(1))))
+        self.assertEqual((100, 50, 40, 30, 60, 200, 150, 250), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(2))))

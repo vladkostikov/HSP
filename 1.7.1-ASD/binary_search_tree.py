@@ -131,6 +131,12 @@ class BST:
 
         return next_level
 
+    # Обход в глубину.
+    # 0 - in-order, 1 - post-order, 2 - pre-order.
+    def DeepAllNodes(self, order: int) -> tuple:
+        nodes = ()
+        return nodes
+
     def _count(self, node) -> int:
         if node is None:
             return 0
