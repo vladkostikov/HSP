@@ -134,7 +134,35 @@ class BST:
     # Обход в глубину.
     # 0 - in-order, 1 - post-order, 2 - pre-order.
     def DeepAllNodes(self, order: int) -> tuple:
+        return self._deep_all_nodes(self.Root, order)
+
+    def _deep_all_nodes(self, current_node: BSTNode, order: int) -> tuple:
         nodes = ()
+        if type(current_node) is not BSTNode:
+            return nodes
+
+        # pre-order
+        if order == 2:
+            nodes += (current_node,)
+
+        left_node = current_node.LeftChild
+        if type(left_node) is BSTNode:
+            left_nodes = self._deep_all_nodes(left_node, order)
+            nodes += left_nodes
+
+        # in-order
+        if order == 0:
+            nodes += (current_node,)
+
+        right_node = current_node.RightChild
+        if type(right_node) is BSTNode:
+            right_nodes = self._deep_all_nodes(right_node, order)
+            nodes += right_nodes
+
+        # post-order
+        if order == 1:
+            nodes += (current_node,)
+
         return nodes
 
     def _count(self, node) -> int:
