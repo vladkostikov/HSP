@@ -1,5 +1,5 @@
 from unittest import TestCase
-from binary_search_tree import BST, BSTNode, BSTFind
+from binary_search_tree import BST, BSTNode
 
 
 class TestBST(TestCase):
@@ -298,3 +298,20 @@ class TestBST(TestCase):
         self.assertEqual((30, 40, 50, 60, 100, 150, 200, 250), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(0))))
         self.assertEqual((30, 40, 60, 50, 150, 250, 200, 100), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(1))))
         self.assertEqual((100, 50, 40, 30, 60, 200, 150, 250), tuple(map(lambda node: node.NodeKey, bst.DeepAllNodes(2))))
+
+    def test_invert(self):
+        bst = BST(None)
+        self.assertEqual((), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+        self.assertEqual((), tuple(map(lambda node: node.NodeKey, bst.Invert().WideAllNodes())))
+
+        bst = BST(BSTNode(100, 100, None))
+        bst.AddKeyValue(50, 50)
+        bst.AddKeyValue(40, 40)
+        bst.AddKeyValue(60, 60)
+        bst.AddKeyValue(30, 30)
+        bst.AddKeyValue(200, 200)
+        bst.AddKeyValue(150, 150)
+        bst.AddKeyValue(250, 250)
+
+        self.assertEqual((100, 50, 200, 40, 60, 150, 250, 30), tuple(map(lambda node: node.NodeKey, bst.WideAllNodes())))
+        self.assertEqual((100, 200, 50, 250, 150, 60, 40, 30), tuple(map(lambda node: node.NodeKey, bst.Invert().WideAllNodes())))

@@ -165,6 +165,52 @@ class BST:
 
         return nodes
 
+    def Invert(self):
+        inverted_bst = BST(None)
+        nodes = self.WideAllNodes()
+        for node in nodes:
+            inverted_bst._AddKeyValue_Inverted(node.NodeKey, node.NodeValue)
+        return inverted_bst
+
+    def _FindNodeByKey_Inverted(self, key) -> BSTFind:
+        found = BSTFind()
+        if self.Root is None:
+            return found
+
+        node = self.Root
+        while node.NodeKey != key:
+            if key > node.NodeKey and node.LeftChild is not None:
+                node = node.LeftChild
+            elif key < node.NodeKey and node.RightChild is not None:
+                node = node.RightChild
+            else:
+                break
+
+        found.Node = node
+        if node.NodeKey == key:
+            found.NodeHasKey = True
+        elif key > node.NodeKey:
+            found.ToLeft = True
+
+        return found
+
+    def _AddKeyValue_Inverted(self, key, val) -> bool:
+        found = self._FindNodeByKey_Inverted(key)
+
+        if found.NodeHasKey:
+            return False  # если ключ уже есть
+
+        if found.Node is None:
+            self.Root = BSTNode(key, val, None)
+            return True
+
+        parent = found.Node
+        if found.ToLeft:
+            parent.LeftChild = BSTNode(key, val, parent)
+        else:
+            parent.RightChild = BSTNode(key, val, parent)
+        return True
+
     def _count(self, node) -> int:
         if node is None:
             return 0
