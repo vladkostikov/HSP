@@ -18,7 +18,11 @@ class TestHeap(TestCase):
     def test_get_max(self):
         heap = Heap()
 
+        self.assertEqual([], heap.HeapArray)
         self.assertEqual(-1, heap.GetMax())
+
+        heap.MakeHeap([10, 20, 30, 25, 35, 40, 45], 2)
+        self.assertEqual(45, heap.GetMax())
 
         heap.MakeHeap([10, 20, 30, 25, 35], 2)
         self.assertEqual([35, 30, 20, 10, 25, None, None], heap.HeapArray)
@@ -38,7 +42,7 @@ class TestHeap(TestCase):
         self.assertEqual(10, heap.GetMax())
         self.assertEqual([None, None, None, None, None, None, None], heap.HeapArray)
 
-        self.assertEqual(None, heap.GetMax())
+        self.assertEqual(-1, heap.GetMax())
         self.assertEqual([None, None, None, None, None, None, None], heap.HeapArray)
 
 

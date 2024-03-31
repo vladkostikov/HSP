@@ -7,16 +7,17 @@ class Heap:
         for key in array:
             self.Add(key)
 
-    def GetMax(self):
+    def GetMax(self) -> int:
         free_index = self._find_free_index()
 
-        if free_index is None:
+        if free_index == 0 or len(self.HeapArray) == 0:
             return -1
 
-        if free_index == 0:
-            return self.HeapArray[free_index]
+        if free_index is None:
+            node_index = len(self.HeapArray) - 1
+        else:
+            node_index = free_index - 1
 
-        node_index = free_index - 1
         max = self.HeapArray[0]
         self.HeapArray[0] = self.HeapArray[node_index]
         self.HeapArray[node_index] = None
