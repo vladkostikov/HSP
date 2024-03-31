@@ -21,6 +21,12 @@ class TestHeap(TestCase):
         self.assertEqual([], heap.HeapArray)
         self.assertEqual(-1, heap.GetMax())
 
+        heap.MakeHeap([10], 0)
+        self.assertEqual(10, heap.GetMax())
+        self.assertEqual([None], heap.HeapArray)
+        self.assertEqual(-1, heap.GetMax())
+        self.assertEqual([None], heap.HeapArray)
+
         heap.MakeHeap([10, 20, 30, 25, 35, 40, 45], 2)
         self.assertEqual(45, heap.GetMax())
 
@@ -44,6 +50,13 @@ class TestHeap(TestCase):
 
         self.assertEqual(-1, heap.GetMax())
         self.assertEqual([None, None, None, None, None, None, None], heap.HeapArray)
+
+        heap.MakeHeap([10, 20, 30, 25, 35], 1)
+        self.assertEqual([30, 10, 20], heap.HeapArray)
+
+        self.assertEqual(30, heap.GetMax())
+        self.assertEqual([20, 10, None], heap.HeapArray)
+
 
 
     def test_add(self):

@@ -73,9 +73,13 @@ class Heap:
 
     def _find_maximum_child_index(self, parent_index: int):
         left_child_index = self._find_left_child_index(parent_index)
+        if left_child_index >= len(self.HeapArray):
+            return None
         left_child = self.HeapArray[left_child_index]
 
         right_child_index = self._find_right_child_index(parent_index)
+        if right_child_index >= len(self.HeapArray):
+            return left_child_index
         right_child = self.HeapArray[right_child_index]
 
         if left_child is not None and right_child is not None:
