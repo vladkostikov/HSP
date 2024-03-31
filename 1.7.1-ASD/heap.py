@@ -10,8 +10,11 @@ class Heap:
     def GetMax(self):
         free_index = self._find_free_index()
 
-        if free_index is None or free_index == 0:
+        if free_index is None:
             return -1
+
+        if free_index == 0:
+            return self.HeapArray[free_index]
 
         node_index = free_index - 1
         max = self.HeapArray[0]

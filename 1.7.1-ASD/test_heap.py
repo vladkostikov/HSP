@@ -38,7 +38,7 @@ class TestHeap(TestCase):
         self.assertEqual(10, heap.GetMax())
         self.assertEqual([None, None, None, None, None, None, None], heap.HeapArray)
 
-        self.assertEqual(-1, heap.GetMax())
+        self.assertEqual(None, heap.GetMax())
         self.assertEqual([None, None, None, None, None, None, None], heap.HeapArray)
 
 
