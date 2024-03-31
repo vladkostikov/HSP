@@ -8,11 +8,12 @@ class Heap:
             self.Add(key)
 
     def GetMax(self):
-        node_index = self._find_free_place() - 1
+        free_index = self._find_free_index()
 
-        if node_index == - 1:
+        if free_index is None or free_index == 0:
             return -1
 
+        node_index = free_index - 1
         max = self.HeapArray[0]
         self.HeapArray[0] = self.HeapArray[node_index]
         self.HeapArray[node_index] = None
@@ -27,7 +28,7 @@ class Heap:
         return max
 
     def Add(self, key: int) -> bool:
-        node_index = self._find_free_place()
+        node_index = self._find_free_index()
         if node_index is None:
             return False
 
@@ -56,7 +57,7 @@ class Heap:
     def _calculate_depth(self, depth: int) -> int:
         return 2 ** (depth + 1) - 1
 
-    def _find_free_place(self):
+    def _find_free_index(self):
         try:
             return self.HeapArray.index(None)
         except:
