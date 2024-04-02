@@ -34,6 +34,40 @@ class SimpleTree:
     def LeafCount(self):
         return len(list(filter(lambda node: len(node.Children) == 0, self.GetAllNodes())))
 
+    def EvenTrees(self) -> list:
+        leaves = list(filter(lambda node: len(node.Children) == 0, self.GetAllNodes()))
+
+        separated_pairs = []
+        for node in leaves:
+            separated = self._separate_even(node)
+            separated_pairs.extend(separated)
+
+        unique_separated_pairs = []
+        for pair in separated_pairs:
+            if pair in unique_separated_pairs:
+                continue
+            unique_separated_pairs.append(pair)
+
+        unique_separated_nodes = []
+        for pair in unique_separated_pairs:
+            unique_separated_nodes.extend(pair)
+
+        return unique_separated_nodes
+
+    def _separate_even(self, node: SimpleTreeNode) -> list:
+        sepatated = []
+
+        parent = node.Parent
+        if parent is None:
+            return sepatated
+
+        childs = self._get_all_nodes(node)
+        if len(childs) > 0 and len(childs) % 2 == 1:
+            sepatated.append([parent, node])
+        sepatated.extend(self._separate_even(parent))
+
+        return sepatated
+
     def _get_all_nodes(self, node) -> list:
         if node is None:
             return []

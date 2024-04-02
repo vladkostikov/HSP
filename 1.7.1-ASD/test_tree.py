@@ -178,3 +178,50 @@ class TestSimpleTree(TestCase):
         self.assertEqual(3, node4.Level)
         self.assertEqual(3, node5.Level)
         self.assertEqual(4, node6.Level)
+
+    def test_even_trees(self):
+        node1 = SimpleTreeNode(1, None)
+        tree = SimpleTree(node1)
+
+        node2 = SimpleTreeNode(2, node1)
+        tree.AddChild(node1, node2)
+
+        node5 = SimpleTreeNode(5, node2)
+        tree.AddChild(node2, node5)
+
+        node7 = SimpleTreeNode(7, node2)
+        tree.AddChild(node2, node7)
+
+        node3 = SimpleTreeNode(3, node1)
+        tree.AddChild(node1, node3)
+
+        node4 = SimpleTreeNode(4, node3)
+        tree.AddChild(node3, node4)
+
+        node6 = SimpleTreeNode(6, node1)
+        tree.AddChild(node1, node6)
+
+        node8 = SimpleTreeNode(8, node6)
+        tree.AddChild(node6, node8)
+
+        node9 = SimpleTreeNode(9, node8)
+        tree.AddChild(node8, node9)
+
+        node10 = SimpleTreeNode(10, node8)
+        tree.AddChild(node8, node10)
+
+        self.assertEqual([1, 3, 1, 6], list(map(lambda node: node.NodeValue, tree.EvenTrees())))
+
+        node11 = SimpleTreeNode(10, node9)
+        tree.AddChild(node9, node11)
+        self.assertEqual([1, 3, 6, 8, 8, 9], list(map(lambda node: node.NodeValue, tree.EvenTrees())))
+
+        node12 = SimpleTreeNode(12, node10)
+        tree.AddChild(node10, node12)
+        self.assertEqual([1, 3, 8, 9, 1, 6, 8, 10], list(map(lambda node: node.NodeValue, tree.EvenTrees())))
+
+        tree.DeleteNode(node10)
+        self.assertEqual([1, 3, 8, 9, 1, 6], list(map(lambda node: node.NodeValue, tree.EvenTrees())))
+
+        tree.DeleteNode(node9)
+        self.assertEqual([1, 3, 1, 6], list(map(lambda node: node.NodeValue, tree.EvenTrees())))
