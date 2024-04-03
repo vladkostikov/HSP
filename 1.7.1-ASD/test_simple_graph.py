@@ -133,7 +133,8 @@ class TestSimpleGraph(TestCase):
         f = 5
         graph.AddVertex(f)
         graph.AddEdge(d, f)
-        self.assertEqual([graph.vertex[a], graph.vertex[b], graph.vertex[d], graph.vertex[f]], graph.DepthFirstSearch(a, f))
+        self.assertEqual([graph.vertex[a], graph.vertex[b], graph.vertex[d], graph.vertex[f]],
+                         graph.DepthFirstSearch(a, f))
 
         g = 6
         graph.AddVertex(g)
@@ -142,3 +143,39 @@ class TestSimpleGraph(TestCase):
         graph.AddEdge(c, g)
         self.assertEqual([graph.vertex[a], graph.vertex[c], graph.vertex[g]], graph.DepthFirstSearch(a, g))
 
+    def test_breadth_first_search(self):
+        graph = SimpleGraph(10)
+
+        a = 0
+        b = 1
+        c = 2
+        d = 3
+        e = 4
+        graph.AddVertex(a)
+        graph.AddVertex(b)
+        graph.AddVertex(c)
+        graph.AddVertex(d)
+        graph.AddVertex(e)
+
+        graph.AddEdge(a, b)
+        graph.AddEdge(a, c)
+        graph.AddEdge(a, d)
+        graph.AddEdge(b, d)
+        graph.AddEdge(d, e)
+
+        self.assertEqual([graph.vertex[a], graph.vertex[b]], graph.BreadthFirstSearch(a, b))
+        self.assertEqual([graph.vertex[a], graph.vertex[c]], graph.BreadthFirstSearch(a, c))
+        self.assertEqual([graph.vertex[a], graph.vertex[d]], graph.BreadthFirstSearch(a, d))
+        self.assertEqual([graph.vertex[a], graph.vertex[d], graph.vertex[e]], graph.BreadthFirstSearch(a, e))
+
+        f = 5
+        graph.AddVertex(f)
+        graph.AddEdge(d, f)
+        self.assertEqual([graph.vertex[a], graph.vertex[d], graph.vertex[f]], graph.BreadthFirstSearch(a, f))
+
+        g = 6
+        graph.AddVertex(g)
+        self.assertEqual([], graph.BreadthFirstSearch(a, g))
+
+        graph.AddEdge(c, g)
+        self.assertEqual([graph.vertex[a], graph.vertex[c], graph.vertex[g]], graph.BreadthFirstSearch(a, g))
