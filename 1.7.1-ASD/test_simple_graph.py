@@ -104,3 +104,41 @@ class TestSimpleGraph(TestCase):
         graph.RemoveEdge(1, 2)
         self.assertEqual(0, graph.m_adjacency[1][2])
         self.assertEqual(0, graph.m_adjacency[2][1])
+
+    def test_depth_first_search(self):
+        graph = SimpleGraph(10)
+        a = 0
+        b = 1
+        c = 2
+        d = 3
+        e = 4
+        graph.AddVertex(a)
+        graph.AddVertex(b)
+        graph.AddVertex(c)
+        graph.AddVertex(d)
+        graph.AddVertex(e)
+
+        graph.AddEdge(a, b)
+        graph.AddEdge(a, c)
+        graph.AddEdge(a, d)
+        graph.AddEdge(b, d)
+        graph.AddEdge(b, e)
+        graph.AddEdge(d, e)
+
+        self.assertEqual([graph.vertex[a], graph.vertex[b]], graph.DepthFirstSearch(a, b))
+        self.assertEqual([graph.vertex[a], graph.vertex[c]], graph.DepthFirstSearch(a, c))
+        self.assertEqual([graph.vertex[a], graph.vertex[d]], graph.DepthFirstSearch(a, d))
+        self.assertEqual([graph.vertex[a], graph.vertex[b], graph.vertex[e]], graph.DepthFirstSearch(a, e))
+
+        f = 5
+        graph.AddVertex(f)
+        graph.AddEdge(d, f)
+        self.assertEqual([graph.vertex[a], graph.vertex[b], graph.vertex[d], graph.vertex[f]], graph.DepthFirstSearch(a, f))
+
+        g = 6
+        graph.AddVertex(g)
+        self.assertEqual([], graph.DepthFirstSearch(a, g))
+
+        graph.AddEdge(c, g)
+        self.assertEqual([graph.vertex[a], graph.vertex[c], graph.vertex[g]], graph.DepthFirstSearch(a, g))
+
