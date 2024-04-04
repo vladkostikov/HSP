@@ -73,6 +73,34 @@ class SimpleGraph:
         shortest_way = self._find_shortest_way(levels)
         return shortest_way
 
+    def WeakVertices(self) -> list:
+        self._reset_vertex_visits()
+        for vertex_index, vertex in enumerate(self.vertex):
+            if type(vertex) is not Vertex:
+                continue
+            edges = self._find_edges(vertex_index)
+            self._mark_strong_vertices(edges, vertex_index)
+        weak_vertices = list(filter(lambda vertex: type(vertex) is Vertex and vertex.Hit is False, self.vertex))
+        return weak_vertices
+
+    def _find_edges(self, vertex_index: int) -> list:
+        edges = []
+        for index, edge in enumerate(self.m_adjacency[vertex_index]):
+            vertex = self.vertex[index]
+            if type(vertex) is not Vertex:
+                continue
+            if edge:
+                edges.append(index)
+        return edges
+
+    def _mark_strong_vertices(self, edges: list, vertex_index: int):
+        for vertex_index2 in edges:
+            for vertex_index3 in edges:
+                if self.IsEdge(vertex_index2, vertex_index3):
+                    self.vertex[vertex_index].Hit = True
+                    self.vertex[vertex_index2].Hit = True
+                    self.vertex[vertex_index3].Hit = True
+
     def _breadth_first_search(self, queue: Queue, levels: dict, level: int, VFrom: int, VTo: int) -> list:
         for vertex_index, edge in enumerate(self.m_adjacency[VFrom]):
             if edge and self.vertex[vertex_index].Hit is False:

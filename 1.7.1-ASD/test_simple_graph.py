@@ -179,3 +179,53 @@ class TestSimpleGraph(TestCase):
 
         graph.AddEdge(c, g)
         self.assertEqual([graph.vertex[a], graph.vertex[c], graph.vertex[g]], graph.BreadthFirstSearch(a, g))
+
+    def test_weak_vertices(self):
+        graph = SimpleGraph(10)
+
+        a1 = 0
+        a2 = 1
+        a3 = 2
+        a4 = 3
+        a5 = 4
+        a6 = 5
+        a7 = 6
+        a8 = 7
+        a0 = 8
+
+        self.assertEqual([], graph.WeakVertices())
+        graph.AddVertex(a1)
+        self.assertEqual([graph.vertex[a1]], graph.WeakVertices())
+        graph.AddVertex(a2)
+        self.assertEqual([graph.vertex[a1], graph.vertex[a2]], graph.WeakVertices())
+        graph.AddEdge(a1, a2)
+        self.assertEqual([graph.vertex[a1], graph.vertex[a2]], graph.WeakVertices())
+        graph.AddVertex(a3)
+        graph.AddEdge(a1, a3)
+        self.assertEqual([graph.vertex[a1], graph.vertex[a2], graph.vertex[a3]], graph.WeakVertices())
+        graph.AddEdge(a2, a3)
+        self.assertEqual([], graph.WeakVertices())
+        graph.AddVertex(a4)
+        graph.AddEdge(a2, a4)
+        self.assertEqual([graph.vertex[a4]], graph.WeakVertices())
+        graph.AddEdge(a3, a4)
+        self.assertEqual([], graph.WeakVertices())
+        graph.AddVertex(a5)
+        graph.AddEdge(a1, a5)
+        self.assertEqual([graph.vertex[a5]], graph.WeakVertices())
+        graph.AddVertex(a6)
+        graph.AddEdge(a3, a6)
+        self.assertEqual([graph.vertex[a5], graph.vertex[a6]], graph.WeakVertices())
+        graph.AddEdge(a5, a6)
+        self.assertEqual([graph.vertex[a5], graph.vertex[a6]], graph.WeakVertices())
+        graph.AddVertex(a7)
+        graph.AddEdge(a6, a7)
+        self.assertEqual([graph.vertex[a5], graph.vertex[a6], graph.vertex[a7]], graph.WeakVertices())
+        graph.AddVertex(a8)
+        graph.AddEdge(a6, a8)
+        self.assertEqual([graph.vertex[a5], graph.vertex[a6], graph.vertex[a7], graph.vertex[a8]], graph.WeakVertices())
+        graph.AddEdge(a7, a8)
+        self.assertEqual([graph.vertex[a5]], graph.WeakVertices())
+        graph.AddVertex(a0)
+        graph.AddEdge(a8, a0)
+        self.assertEqual([graph.vertex[a5], graph.vertex[a0]], graph.WeakVertices())
