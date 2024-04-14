@@ -14,18 +14,28 @@ class Test(TestCase):
 
         array = [4, 3]
         self.assertEqual([3, 4], SelectionSortStep(array, 0))
+
+        array = [4, 3]
         self.assertEqual(array, SelectionSortStep(array, 1))
         self.assertEqual(array, SelectionSortStep(array, 2))
 
         array = [4, 3, 1]
         self.assertEqual([1, 3, 4], SelectionSortStep(array, 0))
+
+        array = [4, 3, 1]
         self.assertEqual([4, 1, 3], SelectionSortStep(array, 1))
+
+        array = [4, 3, 1]
         self.assertEqual(array, SelectionSortStep(array, 2))
         self.assertEqual(array, SelectionSortStep(array, 3))
 
         array = [4, 3, 1, 2]
         self.assertEqual([1, 3, 4, 2], SelectionSortStep(array, 0))
+
+        array = [4, 3, 1, 2]
         self.assertEqual([4, 1, 3, 2], SelectionSortStep(array, 1))
+
+        array = [4, 3, 1, 2]
         self.assertEqual(array, SelectionSortStep(array, 2))
         self.assertEqual(array, SelectionSortStep(array, 3))
         self.assertEqual(array, SelectionSortStep(array, 4))

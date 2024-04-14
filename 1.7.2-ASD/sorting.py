@@ -1,27 +1,24 @@
 def SelectionSortStep(array: list, index: int) -> list:
-    result_array = array[:]
-
     min_index = index
     current_index = index
-    while current_index < len(result_array):
-        if result_array[current_index] < result_array[min_index]:
+    while current_index < len(array):
+        if array[current_index] < array[min_index]:
             min_index = current_index
         current_index += 1
 
     if min_index > index:
-        result_array[index], result_array[min_index] = result_array[min_index], result_array[index]
+        array[index], array[min_index] = array[min_index], array[index]
 
-    return result_array
+    return array
 
 
 def BubbleSortStep(array: list) -> bool:
-    result_array = array[:]
     is_swapped = False
 
     index = 0
-    while index + 1 < len(result_array):
-        if result_array[index] > result_array[index + 1]:
-            result_array[index], result_array[index + 1] = result_array[index + 1], result_array[index]
+    while index + 1 < len(array):
+        if array[index] > array[index + 1]:
+            array[index], array[index + 1] = array[index + 1], array[index]
             is_swapped = True
         index += 1
 
