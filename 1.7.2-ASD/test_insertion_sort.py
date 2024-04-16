@@ -1,5 +1,5 @@
 from unittest import TestCase
-from insertion_sort import InsertionSort, InsertionSortStep
+from insertion_sort import InsertionSort, InsertionSortStep, KnuthSequence
 
 
 class Test(TestCase):
@@ -16,3 +16,16 @@ class Test(TestCase):
 
         array = [1, 6, 5, 4, 3, 2, 7]
         self.assertEqual([1, 3, 5, 4, 6, 2, 7], InsertionSortStep(array, 3, 1))
+
+    def test_knuth_sequence(self):
+        self.assertEqual([1], KnuthSequence(0))
+        self.assertEqual([1], KnuthSequence(1))
+        self.assertEqual([1], KnuthSequence(3))
+        self.assertEqual([1], KnuthSequence(4))
+        self.assertEqual([4, 1], KnuthSequence(5))
+        self.assertEqual([13, 4, 1], KnuthSequence(15))
+        self.assertEqual([13, 4, 1], KnuthSequence(15))
+        self.assertEqual([13, 4, 1], KnuthSequence(15))
+        self.assertEqual([13, 4, 1], KnuthSequence(39))
+        self.assertEqual([13, 4, 1], KnuthSequence(40))
+        self.assertEqual([40, 13, 4, 1], KnuthSequence(41))
