@@ -1,5 +1,5 @@
 from unittest import TestCase
-from insertion_sort import InsertionSort, InsertionSortStep, KnuthSequence
+from insertion_sort import InsertionSort, InsertionSortStep, KnuthSequence, ShellSort
 
 
 class Test(TestCase):
@@ -29,3 +29,23 @@ class Test(TestCase):
         self.assertEqual([13, 4, 1], KnuthSequence(39))
         self.assertEqual([13, 4, 1], KnuthSequence(40))
         self.assertEqual([40, 13, 4, 1], KnuthSequence(41))
+
+
+    def test_shell_sort(self):
+        array = []
+        self.assertEqual([], ShellSort(array))
+
+        array = [7, 6, 5, 4, 3, 2, 1]
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7], ShellSort(array))
+
+        array = list(reversed([num for num in range(15)]))
+        self.assertEqual(list(sorted(array)), ShellSort(array))
+
+        array = list(reversed([num for num in range(42)]))
+        self.assertEqual(list(sorted(array)), ShellSort(array))
+
+        array = list(reversed([num for num in range(123)]))
+        self.assertEqual(list(sorted(array)), ShellSort(array))
+
+        array = list(reversed([num for num in range(366)]))
+        self.assertEqual(list(sorted(array)), ShellSort(array))

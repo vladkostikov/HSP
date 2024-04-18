@@ -23,3 +23,11 @@ def _knuth_sequence(array_size: int, arr: list) -> list:
         return arr
     arr.append(number)
     return _knuth_sequence(array_size, arr)
+
+
+def ShellSort(array: list) -> list:
+    knuth_sequence = KnuthSequence(len(array))
+    for _step_i, step in enumerate(knuth_sequence):
+        for index in range(step):
+            InsertionSortStep(array, step, index)
+    return array
