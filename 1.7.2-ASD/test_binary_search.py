@@ -1,5 +1,5 @@
 from unittest import TestCase
-from binary_search import BinarySearch
+from binary_search import BinarySearch, GallopingSearch
 
 
 class TestBinarySearch(TestCase):
@@ -113,11 +113,13 @@ class TestBinarySearch(TestCase):
         self.assertEqual(1, b_search.GetResult())
 
     def test_galloping_search(self):
-        array = [num for num in range(100)]
-        b_search = BinarySearch(array)
-        self.assertEqual(0, b_search.GetResult())
+        array = []
+        self.assertFalse(GallopingSearch(array, 18))
+        self.assertFalse(GallopingSearch(array, 1))
+        self.assertFalse(GallopingSearch(array, -1))
 
-        self.assertTrue(b_search.GallopingSearch(array, 18))
-        self.assertTrue(b_search.GallopingSearch(array, 1))
-        self.assertTrue(b_search.GallopingSearch(array, 99))
-        self.assertFalse(b_search.GallopingSearch(array, -1))
+        array = [num for num in range(100)]
+        self.assertTrue(GallopingSearch(array, 18))
+        self.assertTrue(GallopingSearch(array, 1))
+        self.assertTrue(GallopingSearch(array, 99))
+        self.assertFalse(GallopingSearch(array, -1))

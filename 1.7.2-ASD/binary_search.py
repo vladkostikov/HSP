@@ -10,7 +10,7 @@ class BinarySearch:
             return
 
         middle_i = (self.Left + self.Right) // 2
-        if middle_i > len(self.Numbers) - 1:
+        if middle_i > len(self.Numbers) - 1 or middle_i < 0:
             self.Status = -1
             return
 
@@ -45,28 +45,30 @@ class BinarySearch:
     def GetResult(self) -> int:
         return self.Status
 
-    def GallopingSearch(self, sorted_numbers: list[int], number: int) -> bool:
-        step = 1
-        current_index = self._calculate_index(step)
 
-        while sorted_numbers[current_index] <= number:
-            if sorted_numbers[current_index] == number:
-                return True
-            step += 1
-            current_index = self._calculate_index(step)
-            if current_index >= len(self.Numbers) - 1:
-                current_index = len(self.Numbers) - 1
-                break
+def _calculate_index(step: int) -> int:
+    return 2 ** step - 2
 
-        binary_search = BinarySearch(sorted_numbers)
-        binary_search.Left = self._calculate_index(step - 1)
-        binary_search.Right = current_index
-        while binary_search.Status == 0:
-            binary_search.Step(number)
 
-        if binary_search.GetResult() == 1:
+def GallopingSearch(sorted_numbers: list[int], number: int) -> bool:
+    step = 1
+    current_index = _calculate_index(step)
+
+    while current_index < len(sorted_numbers) and sorted_numbers[current_index] <= number:
+        if sorted_numbers[current_index] == number:
             return True
-        return False
+        step += 1
+        current_index = _calculate_index(step)
+        if current_index >= len(sorted_numbers) - 1:
+            current_index = len(sorted_numbers) - 1
+            break
 
-    def _calculate_index(self, step: int) -> int:
-        return 2 ** step - 2
+    binary_search = BinarySearch(sorted_numbers)
+    binary_search.Left = _calculate_index(step - 1)
+    binary_search.Right = current_index
+    while binary_search.GetResult() == 0:
+        binary_search.Step(number)
+
+    if binary_search.GetResult() == 1:
+        return True
+    return False
