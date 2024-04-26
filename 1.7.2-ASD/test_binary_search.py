@@ -44,10 +44,10 @@ class TestBinarySearch(TestCase):
         b_search.Step(29)
         self.assertEqual(28, b_search.Left)
         self.assertEqual(29, b_search.Right)
-        self.assertEqual(0, b_search.Status)
+        self.assertEqual(1, b_search.Status)
 
         b_search.Step(29)
-        self.assertEqual(29, b_search.Left)
+        self.assertEqual(28, b_search.Left)
         self.assertEqual(29, b_search.Right)
         self.assertEqual(1, b_search.Status)
 
@@ -69,7 +69,7 @@ class TestBinarySearch(TestCase):
         self.assertEqual(0, b_search.GetResult())
 
         b_search.Step(29)
-        self.assertEqual(0, b_search.GetResult())
+        self.assertEqual(1, b_search.GetResult())
 
         b_search.Step(29)
         self.assertEqual(1, b_search.GetResult())
@@ -97,3 +97,17 @@ class TestBinarySearch(TestCase):
         while b_search.GetResult() == 0:
             b_search.Step(-20)
         self.assertEqual(-1, b_search.GetResult())
+
+        array = [num for num in range(10)]
+        b_search = BinarySearch(array)
+        self.assertEqual(0, b_search.GetResult())
+
+        b_search.Step(3)
+        self.assertEqual(0, b_search.Left)
+        self.assertEqual(3, b_search.Right)
+        self.assertEqual(0, b_search.GetResult())
+
+        b_search.Step(3)
+        self.assertEqual(2, b_search.Left)
+        self.assertEqual(3, b_search.Right)
+        self.assertEqual(1, b_search.GetResult())

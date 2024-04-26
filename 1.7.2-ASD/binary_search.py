@@ -24,11 +24,17 @@ class BinarySearch:
         if self.Numbers[middle_i] > number:
             self.Right = middle_i - 1
 
-        if self.Left == self.Right and self.Numbers[self.Left] == number:
-            self.Status = 1
+        if self.Left == self.Right:
+            if self.Numbers[self.Left] == number:
+                self.Status = 1
+            if self.Numbers[self.Left] != number:
+                self.Status = -1
             return
 
-        if self.Left == self.Right and self.Numbers[self.Left] != number:
+        if abs(self.Right - self.Left) == 1:
+            if self.Left == number or self.Right == number:
+                self.Status = 1
+                return
             self.Status = -1
             return
 
