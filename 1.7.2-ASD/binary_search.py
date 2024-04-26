@@ -32,7 +32,7 @@ class BinarySearch:
             return
 
         if abs(self.Right - self.Left) == 1:
-            if self.Left == number or self.Right == number:
+            if self.Numbers[self.Left] == number or self.Numbers[self.Right] == number:
                 self.Status = 1
                 return
             self.Status = -1
@@ -44,3 +44,29 @@ class BinarySearch:
 
     def GetResult(self) -> int:
         return self.Status
+
+    def GallopingSearch(self, sorted_numbers: list[int], number: int) -> bool:
+        step = 1
+        current_index = self._calculate_index(step)
+
+        while sorted_numbers[current_index] <= number:
+            if sorted_numbers[current_index] == number:
+                return True
+            step += 1
+            current_index = self._calculate_index(step)
+            if current_index >= len(self.Numbers) - 1:
+                current_index = len(self.Numbers) - 1
+                break
+
+        binary_search = BinarySearch(sorted_numbers)
+        binary_search.Left = self._calculate_index(step - 1)
+        binary_search.Right = current_index
+        while binary_search.Status == 0:
+            binary_search.Step(number)
+
+        if binary_search.GetResult() == 1:
+            return True
+        return False
+
+    def _calculate_index(self, step: int) -> int:
+        return 2 ** step - 2

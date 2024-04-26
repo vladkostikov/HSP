@@ -111,3 +111,13 @@ class TestBinarySearch(TestCase):
         self.assertEqual(2, b_search.Left)
         self.assertEqual(3, b_search.Right)
         self.assertEqual(1, b_search.GetResult())
+
+    def test_galloping_search(self):
+        array = [num for num in range(100)]
+        b_search = BinarySearch(array)
+        self.assertEqual(0, b_search.GetResult())
+
+        self.assertTrue(b_search.GallopingSearch(array, 18))
+        self.assertTrue(b_search.GallopingSearch(array, 1))
+        self.assertTrue(b_search.GallopingSearch(array, 99))
+        self.assertFalse(b_search.GallopingSearch(array, -1))
