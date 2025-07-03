@@ -6,9 +6,11 @@ class Element
   end
 
   def to_s
-    symbol
+    symbol.to_s
   end
 
   # Возвращает true, если символы совпадают
-  def ==(other) end
+  def ==(other)
+    other.is_a?(Element) && symbol == other.symbol
+  end
 end

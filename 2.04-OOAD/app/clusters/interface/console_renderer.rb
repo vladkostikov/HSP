@@ -1,0 +1,45 @@
+require 'colorize'
+
+class ConsoleRenderer
+  def initialize(map)
+    @map = map
+  end
+
+  def render
+    render_column_headers
+    render_rows
+  end
+
+  private
+
+  COLOR_MAP = {
+    'A' => :light_blue,
+    'B' => :light_green,
+    'C' => :yellow,
+    'D' => :magenta,
+    'E' => :red
+  }.freeze
+
+  def render_column_headers
+    print "    "
+    (0...Map::WIDTH).each { |x| print "#{x.to_s.rjust(2)}" }
+    puts
+  end
+
+  def render_rows
+    (0...Map::HEIGHT).each do |y|
+      print y.to_s.rjust(2) + " |"
+      (0...Map::WIDTH).each do |x|
+        cell = @map.cell_at(x, y)
+        print " #{format_element(cell.element)}"
+      end
+      puts
+    end
+  end
+
+  def format_element(element)
+    symbol = element.to_s
+    color = COLOR_MAP[symbol] || :default
+    symbol.colorize(color)
+  end
+end
