@@ -21,12 +21,12 @@ RSpec.describe ConsoleRenderer do
 
   it 'prints column headers' do
     output = capture_stdout { subject.render }
-    expect(output).to include("0 1 2 3 4 5 6 7")
+    expect(output).to include(("A".."H").to_a.join(" "))
   end
 
   it 'prints row numbers and elements' do
     output = capture_stdout { subject.render }
-    (0...Map::HEIGHT).each do |y|
+    (1..Map::HEIGHT).each do |y|
       expect(output).to include(y.to_s.rjust(2))
     end
 

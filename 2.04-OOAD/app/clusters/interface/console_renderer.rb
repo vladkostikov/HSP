@@ -14,13 +14,13 @@ class ConsoleRenderer
 
   def render_column_headers
     print "    "
-    (0...Map::WIDTH).each { |x| print "#{x.to_s.rjust(2)}" }
+    ("A".."H").each { |x| print "#{x.to_s.rjust(2)}" }
     puts
   end
 
   def render_rows
     (0...Map::HEIGHT).each do |y|
-      print y.to_s.rjust(2) + " |"
+      print (y + 1).to_s.rjust(2) + " |"
       (0...Map::WIDTH).each do |x|
         cell = @map.cell_at(x, y)
         print " #{format_element(cell.element)}"
