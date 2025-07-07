@@ -1,8 +1,9 @@
 class Element
-  attr_reader :symbol
+  attr_reader :symbol, :color
 
-  def initialize(symbol)
+  def initialize(symbol, color)
     @symbol = symbol
+    @color = color
   end
 
   def to_s
@@ -11,6 +12,6 @@ class Element
 
   # Возвращает true, если символы совпадают
   def ==(other)
-    other.is_a?(Element) && symbol == other.symbol
+    other.is_a?(Element) && symbol == other.symbol && color == other.color
   end
 end

@@ -1,8 +1,9 @@
 require_relative '../../../clusters/game_field/cell'
 require_relative '../../../clusters/game_field/element'
+require_relative '../../../clusters/factory/element_factory'
 
 RSpec.describe Cell do
-  let(:element) { Element.new(:A) }
+  let(:element) { Element.new(:A, :green) }
 
   describe '#initialize' do
     it 'stores coordinates and element' do
@@ -67,13 +68,13 @@ RSpec.describe Cell do
     it 'raises if inserting into occupied cell without force' do
       cell = Cell.new(0, 0, element)
       expect {
-        cell.insert_element(Element.new(:B))
+        cell.insert_element(ElementFactory.new.create_random_element)
       }.to raise_error(RuntimeError, /already occupied/)
     end
 
     it 'overwrites element if force is true' do
       cell = Cell.new(0, 0, element)
-      new_element = Element.new(:C)
+      new_element = ElementFactory.new.create_random_element
       cell.insert_element(new_element, force: true)
       expect(cell.element).to eq(new_element)
     end

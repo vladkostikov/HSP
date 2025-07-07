@@ -14,7 +14,7 @@ RSpec.describe ConsoleRenderer do
     (0...Map::WIDTH).each do |x|
       (0...Map::HEIGHT).each do |y|
         cell = map.cell_at(x, y)
-        cell.insert_element(Element.new('A'), force: true)
+        cell.insert_element(Element.new('A', :green), force: true)
       end
     end
   end

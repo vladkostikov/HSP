@@ -12,14 +12,6 @@ class ConsoleRenderer
 
   private
 
-  COLOR_MAP = {
-    'A' => :light_blue,
-    'B' => :light_green,
-    'C' => :yellow,
-    'D' => :magenta,
-    'E' => :red
-  }.freeze
-
   def render_column_headers
     print "    "
     (0...Map::WIDTH).each { |x| print "#{x.to_s.rjust(2)}" }
@@ -39,7 +31,7 @@ class ConsoleRenderer
 
   def format_element(element)
     symbol = element.to_s
-    color = COLOR_MAP[symbol] || :default
+    color = element.color || :default
     symbol.colorize(color)
   end
 end
