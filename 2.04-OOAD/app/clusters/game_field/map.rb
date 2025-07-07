@@ -37,8 +37,6 @@ class Map
     @grid.flatten.each(&block)
   end
 
-  private
-
   def adjacent?(cell1, cell2)
     (cell1.x - cell2.x).abs + (cell1.y - cell2.y).abs == 1
   end
