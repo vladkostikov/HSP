@@ -1,16 +1,20 @@
-require_relative '../game_field/element'
+require_relative "../game_field/element"
 
 class ElementFactory
-  TYPES = %i[A B C D E]
+  TYPES = %i[A B C D E].freeze
   COLORS = {
-    :A => :light_blue,
-    :B => :light_green,
-    :C => :yellow,
-    :D => :magenta,
-    :E => :red
-  }
+    A: :blue,
+    B: :green,
+    C: :cyan,
+    D: :magenta,
+    E: :red
+  }.freeze
 
-  def create_random_element
+  def create(type, color)
+    Element.new(type, color)
+  end
+
+  def create_random
     type = TYPES.sample
     color = COLORS[type]
     Element.new(type, color)

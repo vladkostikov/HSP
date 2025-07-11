@@ -1,6 +1,8 @@
 class Bonus
-  def initialize() end
+  def initialize; end
 
   # Вызывает эффект на Map
-  def activate(game_map) end
+  def activate(_game_map)
+    raise NotImplementedError, "#{self.class}#activate must be implemented"
+  end
 end

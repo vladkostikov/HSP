@@ -4,3 +4,5 @@ services:
     volumes:
       - .:/app
     command: ruby app.rb
+    stdin_open: true
+    tty: true

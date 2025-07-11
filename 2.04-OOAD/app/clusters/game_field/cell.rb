@@ -2,7 +2,8 @@ class Cell
   attr_reader :x, :y, :element
 
   def initialize(x, y, element = nil)
-    @x, @y = x, y
+    @x = x
+    @y = y
     @element = element
   end
 
@@ -19,12 +20,14 @@ class Cell
   end
 
   def insert_element(new_element, force: false)
-    raise ArgumentError, "Expected Element, got #{new_element.class}" unless new_element.is_a?(Element)
-
-    if !empty? && !force
-      raise "Cell at (#{x}, #{y}) is already occupied"
-    end
+    raise "Cell at (#{x}, #{y}) is already occupied" if !empty? && !force
 
     @element = new_element
+  end
+
+  def match?(other)
+    return false if other.nil? || element.nil?
+
+    element == other.element
   end
 end
