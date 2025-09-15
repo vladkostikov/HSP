@@ -1,9 +1,6 @@
-import java.sql.*;
+package task01_separating_interface;
 
-public interface Storage {
-    void save(String data);
-    String retrieve(int id);
-}
+import java.sql.*;
 
 public class DatabaseStorage implements Storage {
     private final Connection connection;
@@ -14,7 +11,7 @@ public class DatabaseStorage implements Storage {
 
     @Override
     public void save(String data) {
-        String sql = "INSERT INTO storage_data (data) VALUES (?)";
+        String sql = "INSERT INTO storage (data) VALUES (?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, data);
             stmt.executeUpdate();
@@ -25,7 +22,7 @@ public class DatabaseStorage implements Storage {
 
     @Override
     public String retrieve(int id) {
-        String sql = "SELECT data FROM storage_data WHERE id = ?";
+        String sql = "SELECT data FROM storage WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
