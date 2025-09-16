@@ -28,21 +28,19 @@ public class BankAccountTest {
         System.out.println("After withdraw 300: " + account.getBalance());
     }
 
-    // Bug: deposit with negative amount
     @Test
     public void testDepositWithNegativeAmount() {
         System.out.println("Initial balance: " + account.getBalance());
-        account.withdraw(-2000);
-        assertEquals(3000, account.getBalance());
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(-2000));
+        assertEquals(1000, account.getBalance());
         System.out.println("After withdraw -2000: " + account.getBalance());
     }
 
-    // Bug: withdraw with negative amount
     @Test
     public void testWithdrawWithNegativeAmount() {
         System.out.println("Initial balance: " + account.getBalance());
-        account.withdraw(-10000);
-        assertEquals(11000, account.getBalance());
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(-10000));
+        assertEquals(1000, account.getBalance());
         System.out.println("After withdraw -10000: " + account.getBalance());
     }
 }

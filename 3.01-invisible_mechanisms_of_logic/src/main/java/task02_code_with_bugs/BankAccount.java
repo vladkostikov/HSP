@@ -1,21 +1,33 @@
 package task02_code_with_bugs;
 
 public class BankAccount {
-    private int balance;
+    private double balance;
 
-    public BankAccount(int initialBalance) {
+    public BankAccount(double initialBalance) {
         this.balance = initialBalance;
     }
 
-    public void deposit(int amount) {
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+        
         balance += amount;
     }
 
-    public void withdraw(int amount) {
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+
+        if (amount > balance) {
+            throw new IllegalArgumentException("Amount must be less than or equal to balance");
+        }
+
         balance -= amount;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 }
