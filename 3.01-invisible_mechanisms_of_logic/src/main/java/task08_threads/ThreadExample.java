@@ -1,15 +1,18 @@
 package task08_threads;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Task: to improve the code.
+ * Changes: changed int to AtomicInteger for thread-safe counter.
  */
 public class ThreadExample {
-    private static int counter = 0;
+    private static final AtomicInteger counter = new AtomicInteger(0);
 
     public static void main(String[] args) {
         Runnable task = () -> {
             for (int i = 0; i < 1000; i++) {
-                counter++;
+                counter.incrementAndGet();
             }
         };
 
@@ -26,6 +29,6 @@ public class ThreadExample {
             e.printStackTrace();
         }
 
-        System.out.println("Counter: " + counter);
+        System.out.println("Counter: " + counter.get());
     }
 }
