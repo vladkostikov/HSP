@@ -1,45 +1,39 @@
 package task09_parallel_processing;
 
+import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Task: to simplify the code.
+ * Changes: replaced manual thread management with parallel streams.
+ */
 public class ComplexMultiThreadProcessing {
-    private static final int SIZE = 1000000;
-    private static final int THREADS = 4;
-    private static final int[] data = new int[SIZE];
-    private static volatile int sum = 0;
+    private static final int SIZE = 1_000_000;
+    private static final int MAX_VALUE = 100;
 
     public static void main(String[] args) {
+        int[] data = generateData(SIZE);
+        long sum = calculateSum(data);
+        printResult(sum);
+    }
+
+    private static int[] generateData(int size) {
         Random random = new Random();
-        for (int i = 0; i < SIZE; i++) {
-            data[i] = random.nextInt(100);
+        int[] data = new int[size];
+        for (int i = 0; i < size; i++) {
+            data[i] = random.nextInt(MAX_VALUE);
         }
+        return data;
+    }
 
-        Thread[] threads = new Thread[THREADS];
-        int chunkSize = SIZE / THREADS;
+    private static long calculateSum(int[] data) {
+        return Arrays.stream(data)
+                .parallel()
+                .asLongStream()
+                .sum();
+    }
 
-        for (int i = 0; i < THREADS; i++) {
-            final int start = i * chunkSize;
-            final int end = (i + 1) * chunkSize;
-            threads[i] = new Thread(() -> {
-                int localSum = 0;
-                for (int j = start; j < end; j++) {
-                    localSum += data[j];
-                }
-                synchronized (ComplexMultiThreadProcessing.class) {
-                    sum += localSum;
-                }
-            });
-            threads[i].start();
-        }
-
-        for (int i = 0; i < THREADS; i++) {
-            try {
-                threads[i].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
+    private static void printResult(long sum) {
         System.out.println("Sum of all elements: " + sum);
     }
 }
