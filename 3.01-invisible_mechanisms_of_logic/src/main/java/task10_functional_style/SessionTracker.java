@@ -1,31 +1,51 @@
 package task10_functional_style;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Task: rewrite SessionTracker in functional style.
+ * Changes: made the class immutable, methods return new objects instead of mutating state, removed all side effects.
  */
-public class SessionTracker {
-    private final Map<String, Date> activeSessions = new HashMap<>();
+public final class SessionTracker {
+    private final Map<String, LocalDateTime> activeSessions;
 
-    public void registerActivity(String userId) {
-        activeSessions.put(userId, new Date());
-        System.out.println("User activity registered: " + userId);
+    public SessionTracker() {
+        this.activeSessions = Collections.emptyMap();
     }
 
-    public void removeInactiveSessions(long timeoutMillis) {
-        Date now = new Date();
-        Iterator<Map.Entry<String, Date>> iterator = activeSessions.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Date> entry = iterator.next();
-            if (now.getTime() - entry.getValue().getTime() > timeoutMillis) {
-                System.out.println("Removing inactive session: " + entry.getKey());
-                iterator.remove();
+    private SessionTracker(Map<String, LocalDateTime> sessions) {
+        this.activeSessions = Map.copyOf(sessions);
+    }
+
+    public SessionTracker registerActivity(String userId) {
+        if (userId == null || userId.isBlank()) {
+            throw new IllegalArgumentException("User ID cannot be null or empty");
+        }
+
+        Map<String, LocalDateTime> newSessions = new HashMap<>(activeSessions);
+        newSessions.put(userId, LocalDateTime.now());
+        return new SessionTracker(newSessions);
+    }
+
+    public SessionTracker removeInactiveSessions(long timeoutMillis) {
+        if (timeoutMillis < 0) {
+            throw new IllegalArgumentException("Timeout must be non-negative");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        Map<String, LocalDateTime> newSessions = new HashMap<>();
+
+        for (Map.Entry<String, LocalDateTime> entry : activeSessions.entrySet()) {
+            long diffMillis = java.time.Duration.between(entry.getValue(), now).toMillis();
+            if (diffMillis <= timeoutMillis) {
+                newSessions.put(entry.getKey(), entry.getValue());
             }
         }
+
+        return new SessionTracker(newSessions);
     }
 
     public boolean isActive(String userId) {
@@ -36,27 +56,23 @@ public class SessionTracker {
         return activeSessions.size();
     }
 
-    public void printActiveSessions() {
-        System.out.println("Active sessions:");
-        for (Map.Entry<String, Date> entry : activeSessions.entrySet()) {
-            System.out.println(entry.getKey() + " - last active at " + entry.getValue());
-        }
+    public Map<String, LocalDateTime> getActiveSessions() {
+        return activeSessions;
     }
 
     public static void main(String[] args) throws InterruptedException {
         SessionTracker tracker = new SessionTracker();
 
-        tracker.registerActivity("user1");
+        tracker = tracker.registerActivity("user1");
         Thread.sleep(500);
-        tracker.registerActivity("user2");
+        tracker = tracker.registerActivity("user2");
         Thread.sleep(600);
-        tracker.registerActivity("user3");
+        tracker = tracker.registerActivity("user3");
 
-        tracker.printActiveSessions();
+        System.out.println("All sessions: " + tracker.getActiveSessions());
 
-        tracker.removeInactiveSessions(1000);
-
-        tracker.printActiveSessions();
+        tracker = tracker.removeInactiveSessions(1000);
+        System.out.println("After cleanup: " + tracker.getActiveSessions());
 
         System.out.println("Is user1 active? " + tracker.isActive("user1"));
         System.out.println("Is user2 active? " + tracker.isActive("user2"));
