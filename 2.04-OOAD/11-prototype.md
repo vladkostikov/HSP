@@ -1,6 +1,6 @@
 # Прототип игры "Три в ряд"
 
-[![asciicast](https://asciinema.org/a/WKXy5ZxesINMo0xTplZU30nMY.svg)](https://asciinema.org/a/WKXy5ZxesINMo0xTplZU30nMY)
+[![asciicast](https://asciinema.org/a/CP5hWeS71osRapjz.svg)](https://asciinema.org/a/CP5hWeS71osRapjz)
 
 ## Запуск проекта
 
